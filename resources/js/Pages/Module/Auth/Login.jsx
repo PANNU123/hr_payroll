@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { themeConfig } from "../../Store/ThemeConfig.js";
-import {router} from "@inertiajs/react";
+import {router,usePage} from "@inertiajs/react";
+import { Head } from '@inertiajs/react'
+import Swal from "sweetalert2";
+import FlashMessage from "../../Component/FlashMessage.jsx";
 function Login() {
-    // const dispatch = useDispatch();
-    // useEffect(() => {
-    //     dispatch(setPageTitle('Login Boxed'));
-    // });
 
+    const { errors,flash } = usePage().props;
     const isDark = themeConfig.theme === "dark" || themeConfig.isDarkMode;
     const isRtl = themeConfig.rtlClass === "rtl" ? true : false;
     const setLocale = (flag) => {
@@ -33,13 +33,28 @@ function Login() {
         }));
     }
 
-    const submitForm = (e) => {
+    function submitForm(e) {
         e.preventDefault()
         router.post('/login', values)
-    };
+    }
 
+// const testToast=(msg) => {
+//     const toast = Swal.mixin({
+//         toast: true,
+//         position: 'top-end',
+//         showConfirmButton: false,
+//         timer: 3000,
+//     });
+//     toast.fire({
+//         icon: 'error',
+//         title: msg,
+//         padding: '10px 20px',
+//     });
+//  }
     return (
-        <div>
+        <>
+         <FlashMessage flash={flash} />
+        <Head title="HR || Login" />
             <div className="absolute inset-0">
                 <img
                     src="/assets/images/auth/bg-gradient.png"
@@ -48,7 +63,12 @@ function Login() {
                 />
             </div>
 
-            <div className="relative flex min-h-screen items-center justify-center bg-[url(/assets/images/auth/map.png)] bg-cover bg-center bg-no-repeat px-6 py-10 dark:bg-[#060818] sm:px-16">
+            <div className={`relative flex min-h-screen items-center justify-center bg-cover bg-center bg-no-repeat px-6 py-10 dark:bg-[#060818] sm:px-16`}>
+                <img
+                     src="/assets/images/auth/map.png"
+                    alt="image"
+                    className="absolute left-0 top-1/2 h-full max-h-[893px] -translate-y-1/2"
+                />
                 <img
                     src="/assets/images/auth/coming-soon-object1.png"
                     alt="image"
@@ -94,6 +114,7 @@ function Login() {
                                             placeholder="Enter Email"
                                             className="form-input ps-10 placeholder:text-white-dark"
                                         />
+
                                         <span className="absolute start-4 top-1/2 -translate-y-1/2">
                                             <svg
                                                 width="18"
@@ -113,6 +134,7 @@ function Login() {
                                             </svg>
                                         </span>
                                     </div>
+                                    {errors.email && <div className="text-red-600 text-[14px]">{errors.email}</div>}
                                 </div>
                                 <div>
                                     <label htmlFor="Password">Password</label>
@@ -124,6 +146,7 @@ function Login() {
                                             placeholder="Enter Password"
                                             className="form-input ps-10 placeholder:text-white-dark"
                                         />
+
                                         <span className="absolute start-4 top-1/2 -translate-y-1/2">
                                             <svg
                                                 width="18"
@@ -154,7 +177,9 @@ function Login() {
                                                 />
                                             </svg>
                                         </span>
+
                                     </div>
+                                    {errors.password && <div className="text-red-600 text-[14px]">{errors.password}</div>}
                                 </div>
 
                                 <button
@@ -168,7 +193,7 @@ function Login() {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
 

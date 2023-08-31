@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import {themeConfig } from '../Store/ThemeConfig'
-import { Link } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
 import AnimateHeight from 'react-animate-height';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useTranslation } from 'react-i18next';
 
 function Sidebar() {
-const [toggleSidebar, setToggleSidebar] = useState(false);
+    const { base_url } = usePage().props
+
+const [toggleSidebar, setToggleSidebar] = useState(true);
 const [currentMenu, setCurrentMenu] = useState('');
 const [errorSubMenu, setErrorSubMenu] = useState(false);
 const semidark = themeConfig.semidark;
@@ -16,7 +18,6 @@ const toggleMenu = (value) => {
         return oldValue === value ? '' : value;
     });
 };
-
 useEffect(() => {
     const selector = document.querySelector('.sidebar ul a[href="' + window.location.pathname + '"]');
     if (selector) {
@@ -38,7 +39,7 @@ useEffect(() => {
     if (window.innerWidth < 1024 && themeConfig.sidebar) {
         setToggleSidebar(!toggleSidebar);
     }
-}, [location]);
+}, []);
 
   return (
     <div className={semidark ? 'dark' : ''}>
@@ -64,17 +65,19 @@ useEffect(() => {
             </div>
             <PerfectScrollbar className="h-[calc(100vh-80px)] relative">
                 <ul className="relative font-semibold space-y-0.5 p-4 py-0">
-                    <h2 className="py-3 px-7 flex items-center uppercase font-extrabold bg-white-light/30 dark:bg-dark dark:bg-opacity-[0.08] -mx-4 mb-1">
+                    {/* <h2 className="py-3 px-7 flex items-center uppercase font-extrabold bg-white-light/30 dark:bg-dark dark:bg-opacity-[0.08] -mx-4 mb-1">
                         <svg className="w-4 h-5 flex-none hidden" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round">
                             <line x1="5" y1="12" x2="19" y2="12"></line>
                         </svg>
                         <span>{t('apps')}</span>
-                    </h2>
+                    </h2> */}
+
+                    <div className='mt-2 mb-2'></div>
 
                     <li className="nav-item">
                         <ul>
                             <li className="nav-item">
-                                <Link href="/apps/contacts" className="group">
+                                <Link href={`${base_url}/admin/dashboard`} className="group">
                                     <div className="flex items-center">
                                         <svg className="group-hover:!text-primary shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -89,13 +92,13 @@ useEffect(() => {
                                                 fill="currentColor"
                                             />
                                         </svg>
-                                        <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('contacts')}</span>
+                                        <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('Dashboard')}</span>
                                     </div>
                                 </Link>
                             </li>
 
                             <li className="menu nav-item">
-                                <button type="button" className={`${currentMenu === 'invoice' ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('invoice')}>
+                                <button type="button" className={`${currentMenu === 'manage_company' ? 'active' : ''} nav-link group w-full`} onClick={() => toggleMenu('manage_company')}>
                                     <div className="flex items-center">
                                         <svg className="group-hover:!text-primary shrink-0" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -112,29 +115,23 @@ useEffect(() => {
                                                 fill="currentColor"
                                             />
                                         </svg>
-                                        <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('invoice')}</span>
+                                        <span className="ltr:pl-3 rtl:pr-3 text-black dark:text-[#506690] dark:group-hover:text-white-dark">{t('Manage Company')}</span>
                                     </div>
 
-                                    <div className={currentMenu === 'invoice' ? '!rotate-90' : 'rtl:rotate-180'}>
+                                    <div className={currentMenu === 'manage_company' ? '!rotate-90' : 'rtl:rotate-180'}>
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M9 5L15 12L9 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
                                     </div>
                                 </button>
 
-                                <AnimateHeight duration={300} height={currentMenu === 'invoice' ? 'auto' : 0}>
+                                <AnimateHeight duration={300} height={currentMenu === 'manage_company' ? 'auto' : 0}>
                                     <ul className="sub-menu text-gray-500">
                                         <li>
-                                            <Link href="/apps/invoice/list">{t('list')}</Link>
+                                            <Link href={`${base_url}/admin/group-companies`} method='get'>{t('Group Companies')}</Link>
                                         </li>
                                         <li>
-                                            <Link href="/apps/invoice/preview">{t('preview')}</Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/apps/invoice/add">{t('add')}</Link>
-                                        </li>
-                                        <li>
-                                            <Link href="/apps/invoice/edit">{t('edit')}</Link>
+                                            <Link href={`${base_url}/admin/companies`}>{t('Company')}</Link>
                                         </li>
                                     </ul>
                                 </AnimateHeight>

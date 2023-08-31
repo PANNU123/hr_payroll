@@ -3,62 +3,83 @@ import { Link } from '@inertiajs/react'
 import {themeConfig } from '../Store/ThemeConfig'
 import Dropdown from '../Component/Dropdown'
 import { useTranslation } from 'react-i18next';
+import {usePage} from "@inertiajs/react";
 import i18next from 'i18next';
+
 // import {themeConfig } from '../Store/ThemeConfig'
 function Header() {
+    const { base_url } = usePage().props
+
 
     const [search, setSearch] = useState(false);
     const [toggleSidebar, setToggleSidebar] = useState(false);
     const [toggleTheme, settoggleTheme] = useState('light');
+
+    const toggleThemeHandler = () => {
+        // Toggle the theme when a button is clicked
+        if (toggleTheme === 'light') {
+            settoggleTheme('dark');
+        } else {
+            settoggleTheme('light');
+        }
+      };
+
+      if (toggleTheme == 'dark') {
+        document.querySelector('body')?.classList.add('dark');
+    } else {
+        document.querySelector('body')?.classList.remove('dark');
+    }
+
+
     const isRtl = themeConfig.rtlClass === 'rtl' ? true : false;
 
-        const setLocale = (flag) => {
-        setFlag(flag);
-        // if (flag.toLowerCase() === 'ae') {
-        //     dispatch(toggleRTL('rtl'));
-        // } else {
-        //     dispatch(toggleRTL('ltr'));
-        // }
-    };
-    const [flag, setFlag] = useState(themeConfig.locale);
+    //     const setLocale = (flag) => {
+    //     setFlag(flag);
+    //     if (flag.toLowerCase() === 'ae') {
+    //         dispatch(toggleRTL('rtl'));
+    //     } else {
+    //         dispatch(toggleRTL('ltr'));
+    //     }
+    // };
+    // const [flag, setFlag] = useState(themeConfig.locale);
 
     function createMarkup(messages) {
         return { __html: messages };
     }
-    const [messages, setMessages] = useState([
-        {
-            id: 1,
-            image: '<span class="grid place-content-center w-9 h-9 rounded-full bg-success-light dark:bg-success text-success dark:text-success-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></span>',
-            title: 'Congratulations!',
-            message: 'Your OS has been updated.',
-            time: '1hr',
-        },
-        {
-            id: 2,
-            image: '<span class="grid place-content-center w-9 h-9 rounded-full bg-info-light dark:bg-info text-info dark:text-info-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></span>',
-            title: 'Did you know?',
-            message: 'You can switch between artboards.',
-            time: '2hr',
-        },
-        {
-            id: 3,
-            image: '<span class="grid place-content-center w-9 h-9 rounded-full bg-danger-light dark:bg-danger text-danger dark:text-danger-light"> <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>',
-            title: 'Something went wrong!',
-            message: 'Send Reposrt',
-            time: '2days',
-        },
-        {
-            id: 4,
-            image: '<span class="grid place-content-center w-9 h-9 rounded-full bg-warning-light dark:bg-warning text-warning dark:text-warning-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">    <circle cx="12" cy="12" r="10"></circle>    <line x1="12" y1="8" x2="12" y2="12"></line>    <line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span>',
-            title: 'Warning',
-            message: 'Your password strength is low.',
-            time: '5days',
-        },
-    ]);
+    // const [messages, setMessages] = useState([
+    //     {
+    //         id: 1,
+    //         image: '<span class="grid place-content-center w-9 h-9 rounded-full bg-success-light dark:bg-success text-success dark:text-success-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></span>',
+    //         title: 'Congratulations!',
+    //         message: 'Your OS has been updated.',
+    //         time: '1hr',
+    //     },
+    //     {
+    //         id: 2,
+    //         image: '<span class="grid place-content-center w-9 h-9 rounded-full bg-info-light dark:bg-info text-info dark:text-info-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg></span>',
+    //         title: 'Did you know?',
+    //         message: 'You can switch between artboards.',
+    //         time: '2hr',
+    //     },
+    //     {
+    //         id: 3,
+    //         image: '<span class="grid place-content-center w-9 h-9 rounded-full bg-danger-light dark:bg-danger text-danger dark:text-danger-light"> <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>',
+    //         title: 'Something went wrong!',
+    //         message: 'Send Reposrt',
+    //         time: '2days',
+    //     },
+    //     {
+    //         id: 4,
+    //         image: '<span class="grid place-content-center w-9 h-9 rounded-full bg-warning-light dark:bg-warning text-warning dark:text-warning-light"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">    <circle cx="12" cy="12" r="10"></circle>    <line x1="12" y1="8" x2="12" y2="12"></line>    <line x1="12" y1="16" x2="12.01" y2="16"></line></svg></span>',
+    //         title: 'Warning',
+    //         message: 'Your password strength is low.',
+    //         time: '5days',
+    //     },
+    // ]);
 
-    const removeMessage = (value) => {
-        setMessages(messages.filter((user) => user.id !== value));
-    };
+    // const removeMessage = (value) => {
+    //     setMessages(messages.filter((user) => user.id !== value));
+    // };
 
 
     const [notifications, setNotifications] = useState([
@@ -99,8 +120,7 @@ function Header() {
                         type="button"
                         className="collapse-icon flex-none dark:text-[#d0d2d6] hover:text-primary dark:hover:text-primary flex lg:hidden ltr:ml-2 rtl:mr-2 p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:bg-white-light/90 dark:hover:bg-dark/60"
                         onClick={() => {
-                            alert('hhrehfr');
-                          //  setToggleSidebar(!toggleSidebar);
+                           setToggleSidebar(!toggleSidebar);
                         }}
                     >
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -214,10 +234,7 @@ function Header() {
                                     themeConfig.theme === 'light' &&
                                     'flex items-center p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60'
                                 }`}
-                                onClick={() => {
-                                    // dispatch(toggleTheme('dark'));
-                                    settoggleTheme('dark')
-                                }}
+                                onClick={toggleThemeHandler}
                             >
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="1.5" />
@@ -240,10 +257,7 @@ function Header() {
                                     themeConfig.theme === 'dark' &&
                                     'flex items-center p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60'
                                 }`}
-                                onClick={() => {
-                                    // dispatch(toggleTheme('system'));
-                                    settoggleTheme('system')
-                                }}
+                                onClick={toggleThemeHandler}
                             >
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -259,10 +273,7 @@ function Header() {
                                     themeConfig.theme === 'system' &&
                                     'flex items-center p-2 rounded-full bg-white-light/40 dark:bg-dark/40 hover:text-primary hover:bg-white-light/90 dark:hover:bg-dark/60'
                                 }`}
-                                onClick={() => {
-                                    // dispatch(toggleTheme('light'));
-                                    settoggleTheme('light')
-                                }}
+                                onClick={toggleThemeHandler}
                             >
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -276,7 +287,7 @@ function Header() {
                             </button>
                         )}
                     </div>
-                    <div className="dropdown shrink-0">
+                    {/* <div className="dropdown shrink-0">
                         <Dropdown
                             offset={[0, 8]}
                             placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
@@ -304,8 +315,8 @@ function Header() {
                                 })}
                             </ul>
                         </Dropdown>
-                    </div>
-                    <div className="dropdown shrink-0">
+                    </div> */}
+                    {/* <div className="dropdown shrink-0">
                         <Dropdown
                             offset={[0, 8]}
                             placement={`${isRtl ? 'bottom-start' : 'bottom-end'}`}
@@ -409,7 +420,7 @@ function Header() {
                                 )}
                             </ul>
                         </Dropdown>
-                    </div>
+                    </div> */}
                     <div className="dropdown shrink-0">
                         <Dropdown
                             offset={[0, 8]}
@@ -589,7 +600,7 @@ function Header() {
                                     </Link>
                                 </li>
                                 <li className="border-t border-white-light dark:border-white-light/10">
-                                    <Link href="/auth/boxed-signin" className="text-danger !py-3">
+                                    <Link href={`${base_url}/admin/logout`} className="text-danger !py-3">
                                         <svg className="ltr:mr-2 rtl:ml-2 rotate-90 shrink-0" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
                                                 opacity="0.5"

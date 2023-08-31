@@ -6,8 +6,9 @@ import Header from '../Component/Header';
 import Setting from '../Component/Settings';
 import Sidebar from '../Component/Sidebar';
 import Portals from '../Component/Portals';
+import { Head } from '@inertiajs/react'
+function MainLayout({children , title}) {
 
-function MainLayout({children}) {
     const [toggle, setToggle] = useState(false);
     const [showLoader, setShowLoader] = useState(true);
     const [showTopButton, setShowTopButton] = useState(false);
@@ -40,11 +41,13 @@ function MainLayout({children}) {
     }, []);
 
   return (
+    <>
+    <Head title={title} />
+
     <div className={`${(themeConfig.sidebar && 'toggle-sidebar') || ''} ${themeConfig.menu} ${themeConfig.layout} ${themeConfig.rtlClass} main-section antialiased relative font-nunito text-sm font-normal`}>
              <div className="relative">
-                {/* sidebar menu overlay */}
                 <div className={`${(!themeConfig.sidebar && 'hidden') || ''} fixed inset-0 bg-[black]/60 z-50 lg:hidden`} onClick={()=>setToggle(!toggle)}></div>
-                {/* screen loader */}
+
                 {showLoader && (
                     <div className="screen_loader fixed inset-0 bg-[#fafafa] dark:bg-[#060818] z-[60] grid place-content-center animate__animated">
                         <svg width="64" height="64" viewBox="0 0 135 135" xmlns="http://www.w3.org/2000/svg" fill="#4361ee">
@@ -90,11 +93,12 @@ function MainLayout({children}) {
                         {/* BEGIN FOOTER */}
                         <Footer />
                         {/* END FOOTER */}
-                        <Portals />
+                        {/* <Portals /> */}
                     </div>
                 </div>
             </div>
         </div>
+        </>
   )
 }
 

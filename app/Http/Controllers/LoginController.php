@@ -20,6 +20,7 @@ class LoginController extends Controller
         if(Session::get('adminLogin')){
             return to_route('admin.dashboard');
         }
+
         return Inertia::render('Module/Auth/Login');
     }
     public function loginPost(LoginRequest $request){

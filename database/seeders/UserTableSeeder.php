@@ -18,8 +18,8 @@ class UserTableSeeder extends Seeder
             'username'=>'sajjad294',
             'first_name'=>'Md Sajjad',
             'last_name'=>'Hossain',
-            'email'=>'sajjad@gmail.com',
-            'password'=>Hash::make('password'),
+            'email'=>'super@admin.com',
+            'password'=>Hash::make('secret'),
             'status'=>1,
         ]);
     }
