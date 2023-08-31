@@ -44,6 +44,9 @@ class HandleInertiaRequests extends Middleware
                 'info' => fn () => $request->session()->get('info'),
             ],
             'base_url' => url('/'),
+            'auth' => fn () => $request->user()
+                ? $request->user()->only('id', 'first_name', 'last_name','email')
+                : null,
         ]);
     }
 }

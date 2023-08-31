@@ -4,24 +4,30 @@ import { Link, router, usePage } from "@inertiajs/react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-function Add() {
+function Edit({ result, group_company_list }) {
+    const [groupID, setGroupID] = useState(result.group_company_id)
+
+
     const { errors } = usePage().props;
     const [values, setValues] = useState({
-        name: "",
-        address: "",
-        city: "",
-        state: "",
-        post_code: "",
-        email: "",
-        country: "",
-        phone_no: "",
-        website: "",
-        currency: "",
+        id: result.id,
+        group_id:result.group_id,
+        name: result.name,
+        address: result.address,
+        city: result.city,
+        state: result.state,
+        post_code: result.post_code,
+        email: result.email,
+        country: result.country,
+        phone_no: result.phone_no,
+        website: result.website,
+        currency: result.currency,
     });
 
     function handleChange(e) {
         const key = e.target.id;
         const value = e.target.value;
+        setGroupID(value)
         setValues((values) => ({
             ...values,
             [key]: value,
@@ -29,9 +35,8 @@ function Add() {
     }
     function handleSubmit(e) {
         e.preventDefault();
-        router.post("/admin/group-companies/store", values);
+        router.post("/admin/companies/update", values);
     }
-
     return (
         <>
             <div className="panel flex items-center overflow-x-auto whitespace-nowrap p-3 ">
@@ -65,7 +70,7 @@ function Add() {
                         </Link>
                     </li>
                     <li className="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
-                        <span>Add</span>
+                        <span>Edit</span>
                     </li>
                 </ul>
             </div>
@@ -84,6 +89,32 @@ function Add() {
                         >
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
+                                    <label htmlFor="group_id">
+                                        Group Company
+                                    </label>
+                                    <select
+                                        id="group_id"
+                                        className="form-select text-white-dark"
+                                        value={groupID}
+                                        onChange={handleChange}
+                                    >
+                                        <option>Choose...</option>
+                                        {group_company_list.map((item) => (
+                                            <option
+                                                key={item.id}
+                                                value={item.id}
+                                            >
+                                                {item.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    {errors.group_id && (
+                                        <div className="text-red-600 text-[14px]">
+                                            {errors.group_id}
+                                        </div>
+                                    )}
+                                </div>
+                                <div>
                                     <label htmlFor="name">Name</label>
                                     <input
                                         id="name"
@@ -99,23 +130,22 @@ function Add() {
                                         </div>
                                     )}
                                 </div>
-
-                                <div>
-                                    <label htmlFor="address">address</label>
-                                    <input
-                                        id="address"
-                                        type="text"
-                                        placeholder="Enter address"
-                                        className="form-input"
-                                        value={values.address}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.address && (
-                                        <div className="text-red-600 text-[14px]">
-                                            {errors.address}
-                                        </div>
-                                    )}
-                                </div>
+                            </div>
+                            <div>
+                                <label htmlFor="address">address</label>
+                                <input
+                                    id="address"
+                                    type="text"
+                                    placeholder="Enter address"
+                                    className="form-input"
+                                    value={values.address}
+                                    onChange={handleChange}
+                                />
+                                {errors.address && (
+                                    <div className="text-red-600 text-[14px]">
+                                        {errors.address}
+                                    </div>
+                                )}
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
@@ -135,7 +165,7 @@ function Add() {
                                     )}
                                 </div>
 
-                                <div >
+                                <div>
                                     <label htmlFor="country">Country</label>
                                     <input
                                         id="country"
@@ -151,7 +181,6 @@ function Add() {
                                         </div>
                                     )}
                                 </div>
-
                             </div>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -190,7 +219,6 @@ function Add() {
                             </div> */}
 
                             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-
                                 <div className="md:col-span-2">
                                     <label htmlFor="state">State</label>
                                     <input
@@ -202,21 +230,6 @@ function Add() {
                                         onChange={handleChange}
                                     />
                                 </div>
-
-                                {/* <div>
-                                    <label htmlFor="phone_no">Phone Number</label>
-                                    <select
-                                        id="phone_no"
-                                        className="form-select text-white-dark"
-                                    >
-                                        <option>Choose...</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
-                                </div> */}
                                 <div className="md:col-span-2">
                                     <label htmlFor="phone_no">
                                         Phone Number
@@ -282,8 +295,8 @@ function Add() {
     );
 }
 
-Add.layout = (page) => (
-    <MainLayout children={page} title="HR || Add Group Of Company" />
+Edit.layout = (page) => (
+    <MainLayout children={page} title="HR || Edit Group Of Company" />
 );
 
-export default Add;
+export default Edit;

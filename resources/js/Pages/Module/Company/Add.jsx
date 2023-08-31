@@ -4,9 +4,10 @@ import { Link, router, usePage } from "@inertiajs/react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-function Add() {
+function Add({ group_company_list }) {
     const { errors } = usePage().props;
     const [values, setValues] = useState({
+        group_id: "",
         name: "",
         address: "",
         city: "",
@@ -29,7 +30,8 @@ function Add() {
     }
     function handleSubmit(e) {
         e.preventDefault();
-        router.post("/admin/group-companies/store", values);
+        console.log(values);
+        router.post("/admin/companies/store", values);
     }
 
     return (
@@ -61,7 +63,7 @@ function Add() {
                 <ul className="flex space-x-2 rtl:space-x-reverse">
                     <li>
                         <Link href="#" className="text-primary hover:underline">
-                            Group Company
+                            Company
                         </Link>
                     </li>
                     <li className="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
@@ -73,7 +75,7 @@ function Add() {
                 <div className="panel" id="forms_grid">
                     <div className="flex items-center justify-between mb-5">
                         <h5 className="font-semibold text-lg dark:text-white-light">
-                            Group Company
+                            Company
                         </h5>
                     </div>
                     <div className="mb-5">
@@ -83,6 +85,32 @@ function Add() {
                             method="post"
                         >
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label htmlFor="group_id">
+                                        Group Company
+                                    </label>
+                                    <select
+                                        id="group_id"
+                                        className="form-select text-white-dark"
+                                        value={values.group_id}
+                                        onChange={handleChange}
+                                    >
+                                        <option>Choose...</option>
+                                        {group_company_list.map((item) => (
+                                            <option
+                                                key={item.id}
+                                                value={item.id}
+                                            >
+                                                {item.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    {errors.group_id && (
+                                        <div className="text-red-600 text-[14px]">
+                                            {errors.group_id}
+                                        </div>
+                                    )}
+                                </div>
                                 <div>
                                     <label htmlFor="name">Name</label>
                                     <input
@@ -99,23 +127,22 @@ function Add() {
                                         </div>
                                     )}
                                 </div>
-
-                                <div>
-                                    <label htmlFor="address">address</label>
-                                    <input
-                                        id="address"
-                                        type="text"
-                                        placeholder="Enter address"
-                                        className="form-input"
-                                        value={values.address}
-                                        onChange={handleChange}
-                                    />
-                                    {errors.address && (
-                                        <div className="text-red-600 text-[14px]">
-                                            {errors.address}
-                                        </div>
-                                    )}
-                                </div>
+                            </div>
+                            <div>
+                                <label htmlFor="address">address</label>
+                                <input
+                                    id="address"
+                                    type="text"
+                                    placeholder="Enter address"
+                                    className="form-input"
+                                    value={values.address}
+                                    onChange={handleChange}
+                                />
+                                {errors.address && (
+                                    <div className="text-red-600 text-[14px]">
+                                        {errors.address}
+                                    </div>
+                                )}
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
@@ -135,7 +162,7 @@ function Add() {
                                     )}
                                 </div>
 
-                                <div >
+                                <div>
                                     <label htmlFor="country">Country</label>
                                     <input
                                         id="country"
@@ -151,7 +178,6 @@ function Add() {
                                         </div>
                                     )}
                                 </div>
-
                             </div>
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -190,7 +216,6 @@ function Add() {
                             </div> */}
 
                             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-
                                 <div className="md:col-span-2">
                                     <label htmlFor="state">State</label>
                                     <input
@@ -202,21 +227,6 @@ function Add() {
                                         onChange={handleChange}
                                     />
                                 </div>
-
-                                {/* <div>
-                                    <label htmlFor="phone_no">Phone Number</label>
-                                    <select
-                                        id="phone_no"
-                                        className="form-select text-white-dark"
-                                    >
-                                        <option>Choose...</option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
-                                </div> */}
                                 <div className="md:col-span-2">
                                     <label htmlFor="phone_no">
                                         Phone Number
