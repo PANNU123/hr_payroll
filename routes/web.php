@@ -4,6 +4,8 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GroupCompanyController;
+use App\Http\Controllers\ReligionsController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
@@ -20,25 +22,36 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
 
 
     Route::group(['prefix' => 'group-companies' ],function (){
-        Route::get('', [GroupCompanyController::class, 'groupCompany'])->name('group.company');
-        Route::get('/create', [GroupCompanyController::class, 'groupCompanyCreate'])->name('group.company.create');
-        Route::post('/store', [GroupCompanyController::class, 'groupCompanyStore'])->name('group.company.store');
-        Route::get('/edit/{id}', [GroupCompanyController::class, 'groupCompanyEdit'])->name('group.company.edit');
-        Route::post('/update', [GroupCompanyController::class, 'groupCompanyUpdate'])->name('group.company.update');
-        Route::get('/delete/{id}', [GroupCompanyController::class, 'groupCompanyDelete'])->name('group.company.delete');
-        Route::get('/active/{id}', [GroupCompanyController::class, 'groupCompanyActive'])->name('group.company.status.active');
-        Route::get('/inactive/{id}', [GroupCompanyController::class, 'groupCompanyInactive'])->name('group.company.status.inactive');
+        Route::get('', [GroupCompanyController::class, 'index'])->name('group.company');
+        Route::get('/create', [GroupCompanyController::class, 'create'])->name('group.company.create');
+        Route::post('/store', [GroupCompanyController::class, 'store'])->name('group.company.store');
+        Route::get('/edit/{id}', [GroupCompanyController::class, 'edit'])->name('group.company.edit');
+        Route::post('/update', [GroupCompanyController::class, 'update'])->name('group.company.update');
+        Route::get('/delete/{id}', [GroupCompanyController::class, 'delete'])->name('group.company.delete');
+        Route::get('/active/{id}', [GroupCompanyController::class, 'active'])->name('group.company.status.active');
+        Route::get('/inactive/{id}', [GroupCompanyController::class, 'inactive'])->name('group.company.status.inactive');
     });
 
     Route::group(['prefix' => 'companies' ],function (){
-        Route::get('', [CompanyController::class, 'Company'])->name('company');
-        Route::get('/create', [CompanyController::class, 'CompanyCreate'])->name('company.create');
-        Route::post('/store', [CompanyController::class, 'CompanyStore'])->name('company.store');
-        Route::get('/edit/{id}', [CompanyController::class, 'CompanyEdit'])->name('company.edit');
-        Route::post('/update', [CompanyController::class, 'CompanyUpdate'])->name('company.update');
-        Route::get('/delete/{id}', [CompanyController::class, 'CompanyDelete'])->name('company.delete');
-        Route::get('/active/{id}', [CompanyController::class, 'CompanyActive'])->name('company.status.active');
-        Route::get('/inactive/{id}', [CompanyController::class, 'CompanyInactive'])->name('company.status.inactive');
+        Route::get('', [CompanyController::class, 'index'])->name('company');
+        Route::get('/create', [CompanyController::class, 'create'])->name('company.create');
+        Route::post('/store', [CompanyController::class, 'store'])->name('company.store');
+        Route::get('/edit/{id}', [CompanyController::class, 'edit'])->name('company.edit');
+        Route::post('/update', [CompanyController::class, 'update'])->name('company.update');
+        Route::get('/delete/{id}', [CompanyController::class, 'delete'])->name('company.delete');
+        Route::get('/active/{id}', [CompanyController::class, 'active'])->name('company.status.active');
+        Route::get('/inactive/{id}', [CompanyController::class, 'inactive'])->name('company.status.inactive');
+    });
+
+    Route::group(['prefix' => 'religions' ],function (){
+        Route::get('', [ReligionsController::class, 'index'])->name('religions');
+        Route::get('/create', [ReligionsController::class, 'create'])->name('religions.create');
+        Route::post('/store', [ReligionsController::class, 'store'])->name('religions.store');
+        Route::get('/edit/{id}', [ReligionsController::class, 'edit'])->name('religions.edit');
+        Route::post('/update', [ReligionsController::class, 'update'])->name('religions.update');
+        Route::get('/delete/{id}', [ReligionsController::class, 'delete'])->name('religions.delete');
+        Route::get('/active/{id}', [ReligionsController::class, 'active'])->name('religions.status.active');
+        Route::get('/inactive/{id}', [ReligionsController::class, 'inactive'])->name('religions.status.inactive');
     });
 
 });

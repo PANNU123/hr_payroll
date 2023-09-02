@@ -19,15 +19,15 @@ class CompanyController extends Controller
     }
 
 
-    public function Company(){
+    public function index(){
         $result = $this->companyRepository->getAll();
         return Inertia::render('Module/Company/Index',['result' => $result]);
     }
-    public function CompanyCreate(){
+    public function create(){
         $group_company_list = GroupCompany::select('id','name')->get();
         return Inertia::render('Module/Company/Add',['group_company_list'=>$group_company_list]);
     }
-    public function CompanyStore(CompanyRequest $request){
+    public function store(CompanyRequest $request){
         $result = $this->companyRepository->store($request);
         if($result['status']== true){
             return to_route('admin.company')->with('success', $result['message']);
@@ -35,12 +35,12 @@ class CompanyController extends Controller
             return to_route('admin.company')->with('error', 'Data Does not Insert');
         }
     }
-    public function CompanyEdit($id){
+    public function edit($id){
         $group_company_list = GroupCompany::select('id','name')->get();
         $result = $this->companyRepository->edit($id);
         return Inertia::render('Module/Company/Edit',['result' => $result,'group_company_list'=>$group_company_list]);
     }
-    public function CompanyUpdate(Request $request){
+    public function update(Request $request){
         $result=$this->companyRepository->update($request);
         if($result['status']== true){
             return to_route('admin.company')->with('success', $result['message']);
@@ -48,14 +48,14 @@ class CompanyController extends Controller
             return to_route('admin.company')->with('error', 'Data Does not Insert');
         }
     }
-    public function CompanyDelete($id){
+    public function delete($id){
         $result= $this->companyRepository->delete($id);
         return to_route('admin.company')->with('success', $result['message']);
     }
-    public function CompanyActive(){
+    public function active(){
 
     }
-    public function CompanyInactive(){
+    public function inactive(){
 
     }
 }

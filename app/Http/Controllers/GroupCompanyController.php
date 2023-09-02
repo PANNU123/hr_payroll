@@ -19,14 +19,14 @@ class GroupCompanyController extends Controller
     }
 
 
-    public function groupCompany(){
+    public function index(){
         $result = $this->groupCompanyRepository->getAll();
         return Inertia::render('Module/GroupCompany/Index',['result' => $result]);
     }
-    public function groupCompanyCreate(){
+    public function create(){
         return Inertia::render('Module/GroupCompany/Add');
     }
-    public function groupCompanyStore(GroupCompanyRequest $request){
+    public function store(GroupCompanyRequest $request){
         $result = $this->groupCompanyRepository->store($request);
         if($result['status']== true){
             return to_route('admin.group.company')->with('success', $result['message']);
@@ -34,11 +34,11 @@ class GroupCompanyController extends Controller
             return to_route('admin.group.company')->with('error', 'Data Does not Insert');
         }
     }
-    public function groupCompanyEdit($id){
+    public function edit($id){
         $result = $this->groupCompanyRepository->edit($id);
         return Inertia::render('Module/GroupCompany/Edit',['result' => $result]);
     }
-    public function groupCompanyUpdate(Request $request){
+    public function update(Request $request){
         $result=$this->groupCompanyRepository->update($request);
         if($result['status']== true){
             return to_route('admin.group.company')->with('success', $result['message']);
@@ -46,15 +46,15 @@ class GroupCompanyController extends Controller
             return to_route('admin.group.company')->with('error', 'Data Does not Insert');
         }
     }
-    public function groupCompanyDelete($id){
+    public function delete($id){
         $result= $this->groupCompanyRepository->delete($id);
         return to_route('admin.group.company')->with('success', $result['message']);
 
     }
-    public function groupCompanyActive(){
+    public function active(){
 
     }
-    public function groupCompanyInactive(){
+    public function inactive(){
 
     }
 }
