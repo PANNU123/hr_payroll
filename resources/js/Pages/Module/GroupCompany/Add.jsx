@@ -3,9 +3,10 @@ import MainLayout from "../../Layout/Mainlayout";
 import { Link, router, usePage } from "@inertiajs/react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import FlashMessage from "../../Component/FlashMessage.jsx";
 
 function Add() {
-    const { errors } = usePage().props;
+    const { errors,flash } = usePage().props;
     const [values, setValues] = useState({
         name: "",
         address: "",
@@ -30,10 +31,23 @@ function Add() {
     function handleSubmit(e) {
         e.preventDefault();
         router.post("/admin/group-companies/store", values);
+        setValues({
+            name: "",
+            address: "",
+            city: "",
+            state: "",
+            post_code: "",
+            email: "",
+            country: "",
+            phone_no: "",
+            website: "",
+            currency: "",
+        })
     }
 
     return (
         <>
+            <FlashMessage flash={flash} />
             <div className="panel flex items-center overflow-x-auto whitespace-nowrap p-3 ">
                 <div className="rounded-full bg-primary p-1.5 text-white ring-2 ring-primary/30 ltr:mr-3 rtl:ml-3">
                     <svg

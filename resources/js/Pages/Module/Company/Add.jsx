@@ -3,9 +3,10 @@ import MainLayout from "../../Layout/Mainlayout";
 import { Link, router, usePage } from "@inertiajs/react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import FlashMessage from "../../Component/FlashMessage.jsx";
 
 function Add({ group_company_list }) {
-    const { errors } = usePage().props;
+    const { errors,flash } = usePage().props;
     const [values, setValues] = useState({
         group_id: "",
         name: "",
@@ -32,10 +33,24 @@ function Add({ group_company_list }) {
         e.preventDefault();
         console.log(values);
         router.post("/admin/companies/store", values);
+        setValues({
+            group_id: "",
+            name: "",
+            address: "",
+            city: "",
+            state: "",
+            post_code: "",
+            email: "",
+            country: "",
+            phone_no: "",
+            website: "",
+            currency: "",
+        });
     }
 
     return (
         <>
+            <FlashMessage flash={flash} />
             <div className="panel flex items-center overflow-x-auto whitespace-nowrap p-3 ">
                 <div className="rounded-full bg-primary p-1.5 text-white ring-2 ring-primary/30 ltr:mr-3 rtl:ml-3">
                     <svg

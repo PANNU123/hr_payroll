@@ -10,6 +10,7 @@ function Add({ group_company_list }) {
     const { errors } = usePage().props;
     const [values, setValues] = useState({
         name: "",
+        description:""
     });
 
     function handleChange(e) {
@@ -22,12 +23,12 @@ function Add({ group_company_list }) {
     }
     function handleSubmit(e) {
         e.preventDefault();
-        router.post("/admin/religions/store", values);
+        router.post("/admin/title/store", values);
         setValues({
             name: "",
+            description:""
         })
     }
-
     return (
         <>
             <FlashMessage flash={flash} />
@@ -58,7 +59,7 @@ function Add({ group_company_list }) {
                 <ul className="flex space-x-2 rtl:space-x-reverse">
                     <li>
                         <Link href="#" className="text-primary hover:underline">
-                            Religions
+                            Title
                         </Link>
                     </li>
                     <li className="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
@@ -70,7 +71,7 @@ function Add({ group_company_list }) {
                 <div className="panel" id="forms_grid">
                     <div className="flex items-center justify-between mb-5">
                         <h5 className="font-semibold text-lg dark:text-white-light">
-                            Religions
+                            Title
                         </h5>
                     </div>
                     <div className="mb-5">
@@ -85,7 +86,7 @@ function Add({ group_company_list }) {
                                     <input
                                         id="name"
                                         type="text"
-                                        placeholder="Enter Religions"
+                                        placeholder="Enter Title"
                                         className="form-input"
                                         value={values.name}
                                         onChange={handleChange}
@@ -95,6 +96,17 @@ function Add({ group_company_list }) {
                                             {errors.name}
                                         </div>
                                     )}
+                                </div>
+                                <div>
+                                    <label htmlFor="gridAddress1">Description</label>
+
+                                    <textarea
+                                        id="description"
+                                        placeholder="Enter Description"
+                                        className="form-input"
+                                        value={values.description}
+                                        onChange={handleChange}
+                                    ></textarea>
                                 </div>
                             </div>
                             <button

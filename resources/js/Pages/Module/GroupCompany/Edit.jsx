@@ -3,10 +3,11 @@ import MainLayout from "../../Layout/Mainlayout";
 import { Link, router, usePage } from "@inertiajs/react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import FlashMessage from "../../Component/FlashMessage.jsx";
 
 function Edit({result}) {
     // console.log(result)
-    const { errors } = usePage().props;
+    const { errors,flash } = usePage().props;
     const [values, setValues] = useState({
         id:result.id,
         name: result.name,
@@ -37,6 +38,7 @@ function Edit({result}) {
 
     return (
         <>
+            <FlashMessage flash={flash} />
             <div className="panel flex items-center overflow-x-auto whitespace-nowrap p-3 ">
                 <div className="rounded-full bg-primary p-1.5 text-white ring-2 ring-primary/30 ltr:mr-3 rtl:ml-3">
                     <svg

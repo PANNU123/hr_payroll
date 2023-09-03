@@ -5,11 +5,14 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import FlashMessage from "../../Component/FlashMessage.jsx";
 
-function Add({ group_company_list }) {
+function Edit({ result }) {
     const {  flash } = usePage().props;
     const { errors } = usePage().props;
     const [values, setValues] = useState({
-        name: "",
+        id: result.id,
+        name: result.name,
+        description:result.description,
+
     });
 
     function handleChange(e) {
@@ -22,12 +25,8 @@ function Add({ group_company_list }) {
     }
     function handleSubmit(e) {
         e.preventDefault();
-        router.post("/admin/religions/store", values);
-        setValues({
-            name: "",
-        })
+        router.post("/admin/title/update", values);
     }
-
     return (
         <>
             <FlashMessage flash={flash} />
@@ -58,11 +57,11 @@ function Add({ group_company_list }) {
                 <ul className="flex space-x-2 rtl:space-x-reverse">
                     <li>
                         <Link href="#" className="text-primary hover:underline">
-                            Religions
+                            Title
                         </Link>
                     </li>
                     <li className="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
-                        <span>Add</span>
+                        <span>Edit</span>
                     </li>
                 </ul>
             </div>
@@ -70,7 +69,7 @@ function Add({ group_company_list }) {
                 <div className="panel" id="forms_grid">
                     <div className="flex items-center justify-between mb-5">
                         <h5 className="font-semibold text-lg dark:text-white-light">
-                            Religions
+                            Title
                         </h5>
                     </div>
                     <div className="mb-5">
@@ -79,13 +78,13 @@ function Add({ group_company_list }) {
                             onSubmit={handleSubmit}
                             method="post"
                         >
-                            <div className="grid grid-cols-1 sm:grid-cols-1 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-1">
                                 <div>
                                     <label htmlFor="name">Name</label>
                                     <input
                                         id="name"
                                         type="text"
-                                        placeholder="Enter Religions"
+                                        placeholder="Enter Title"
                                         className="form-input"
                                         value={values.name}
                                         onChange={handleChange}
@@ -96,7 +95,19 @@ function Add({ group_company_list }) {
                                         </div>
                                     )}
                                 </div>
+                                <div>
+                                    <label htmlFor="gridAddress1">Description</label>
+
+                                    <textarea
+                                        id="description"
+                                        placeholder="Enter Description"
+                                        className="form-input"
+                                        value={values.description}
+                                        onChange={handleChange}
+                                    ></textarea>
+                                </div>
                             </div>
+
                             <button
                                 type="submit"
                                 className="btn btn-primary !mt-6"
@@ -111,8 +122,8 @@ function Add({ group_company_list }) {
     );
 }
 
-Add.layout = (page) => (
-    <MainLayout children={page} title="HR || Add Group Of Company" />
+Edit.layout = (page) => (
+    <MainLayout children={page} title="HR || Edit Group Of Company" />
 );
 
-export default Add;
+export default Edit;

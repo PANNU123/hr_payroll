@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-
-use App\Http\Requests\ReligionsRequest;
-use App\Repositories\ReligonsRepository;
+use App\Http\Requests\TitleRequest;
+use App\Repositories\TitleRepository;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class ReligionsController extends Controller
+class TitleController extends Controller
 {
     protected $religions;
-    public function __construct(ReligonsRepository $religions)
+    public function __construct(TitleRepository $religions)
     {
         $this->religions = $religions;
     }
@@ -19,12 +18,12 @@ class ReligionsController extends Controller
 
     public function index(){
         $result = $this->religions->getAll();
-        return Inertia::render('Module/Religions/Index',['result' => $result]);
+        return Inertia::render('Module/Title/Index',['result' => $result]);
     }
     public function create(){
-        return Inertia::render('Module/Religions/Add');
+        return Inertia::render('Module/Title/Add');
     }
-    public function store(ReligionsRequest $request){
+    public function store(TitleRequest $request){
         $result = $this->religions->store($request);
         if($result['status']== true){
             return back()->with('success', $result['message']);
@@ -34,7 +33,7 @@ class ReligionsController extends Controller
     }
     public function edit($id){
         $result = $this->religions->edit($id);
-        return Inertia::render('Module/Religions/Edit',['result'=>$result]);
+        return Inertia::render('Module/Title/Edit',['result'=>$result]);
     }
     public function update(Request $request){
         $result=$this->religions->update($request);

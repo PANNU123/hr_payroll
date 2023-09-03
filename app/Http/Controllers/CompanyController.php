@@ -30,9 +30,11 @@ class CompanyController extends Controller
     public function store(CompanyRequest $request){
         $result = $this->companyRepository->store($request);
         if($result['status']== true){
-            return to_route('admin.company')->with('success', $result['message']);
+//            return to_route('admin.company')->with('success', $result['message']);
+            return back()->with('success', $result['message']);
         }else{
-            return to_route('admin.company')->with('error', 'Data Does not Insert');
+//            return to_route('admin.company')->with('error', 'Data Does not Insert');
+             return back()->with('error', 'Data Does not Insert');
         }
     }
     public function edit($id){
@@ -43,9 +45,11 @@ class CompanyController extends Controller
     public function update(Request $request){
         $result=$this->companyRepository->update($request);
         if($result['status']== true){
-            return to_route('admin.company')->with('success', $result['message']);
+//            return to_route('admin.company')->with('success', $result['message']);
+            return back()->with('success', $result['message']);
         }else{
-            return to_route('admin.company')->with('error', 'Data Does not Insert');
+//            return to_route('admin.company')->with('error', 'Data Does not Insert');
+             return back()->with('error', 'Data Does not Insert');
         }
     }
     public function delete($id){

@@ -29,9 +29,11 @@ class GroupCompanyController extends Controller
     public function store(GroupCompanyRequest $request){
         $result = $this->groupCompanyRepository->store($request);
         if($result['status']== true){
-            return to_route('admin.group.company')->with('success', $result['message']);
+//            return to_route('admin.group.company')->with('success', $result['message']);
+            return back()->with('success', $result['message']);
         }else{
-            return to_route('admin.group.company')->with('error', 'Data Does not Insert');
+//            return to_route('admin.group.company')->with('error', 'Data Does not Insert');
+             return back()->with('error', 'Data Does not Insert');
         }
     }
     public function edit($id){
@@ -41,9 +43,11 @@ class GroupCompanyController extends Controller
     public function update(Request $request){
         $result=$this->groupCompanyRepository->update($request);
         if($result['status']== true){
-            return to_route('admin.group.company')->with('success', $result['message']);
+//            return to_route('admin.group.company')->with('success', $result['message']);
+            return back()->with('success', $result['message']);
         }else{
-            return to_route('admin.group.company')->with('error', 'Data Does not Insert');
+//            return to_route('admin.group.company')->with('error', 'Data Does not Insert');
+             return back()->with('error', 'Data Does not Insert');
         }
     }
     public function delete($id){

@@ -170,7 +170,7 @@ useEffect(() => {
                                             <Link href={`${base_url}/admin/religions`} method='get'>{t('Religions')}</Link>
                                         </li>
                                         <li>
-                                            <Link href={`${base_url}/admin/companies`}>{t('Company')}</Link>
+                                            <Link href={`${base_url}/admin/title`}>{t('Title')}</Link>
                                         </li>
                                     </ul>
                                 </AnimateHeight>

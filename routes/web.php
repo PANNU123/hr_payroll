@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GroupCompanyController;
 use App\Http\Controllers\ReligionsController;
+use App\Http\Controllers\TitleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -52,6 +53,16 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/delete/{id}', [ReligionsController::class, 'delete'])->name('religions.delete');
         Route::get('/active/{id}', [ReligionsController::class, 'active'])->name('religions.status.active');
         Route::get('/inactive/{id}', [ReligionsController::class, 'inactive'])->name('religions.status.inactive');
+    });
+    Route::group(['prefix' => 'title' ],function (){
+        Route::get('', [TitleController::class, 'index'])->name('title');
+        Route::get('/create', [TitleController::class, 'create'])->name('title.create');
+        Route::post('/store', [TitleController::class, 'store'])->name('title.store');
+        Route::get('/edit/{id}', [TitleController::class, 'edit'])->name('title.edit');
+        Route::post('/update', [TitleController::class, 'update'])->name('title.update');
+        Route::get('/delete/{id}', [TitleController::class, 'delete'])->name('title.delete');
+        Route::get('/active/{id}', [TitleController::class, 'active'])->name('title.status.active');
+        Route::get('/inactive/{id}', [TitleController::class, 'inactive'])->name('title.status.inactive');
     });
 
 });
