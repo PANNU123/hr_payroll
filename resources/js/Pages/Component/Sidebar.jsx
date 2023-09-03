@@ -190,6 +190,9 @@ useEffect(() => {
                                         <li>
                                             <Link href={`${base_url}/admin/designation`}>{t('Designation')}</Link>
                                         </li>
+                                        <li>
+                                            <Link href={`${base_url}/admin/department`}>{t('Department')}</Link>
+                                        </li>
                                     </ul>
                                 </AnimateHeight>
                             </li>

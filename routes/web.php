@@ -3,6 +3,8 @@
 use App\Http\Controllers\BangladeshController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\democontroller;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\DutyLocationController;
 use App\Http\Controllers\LoginController;
@@ -28,6 +30,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
     Route::get('dashboard', [DashboardController::class, 'adminDashboard'])->name('dashboard');
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('get-punch-details', [PunchDetailsController::class, 'getPunchedData'])->name('get.punch.machine.date');
+
+
 
     Route::group(['prefix' => 'group-companies' ],function (){
         Route::get('', [GroupCompanyController::class, 'index'])->name('group.company');
@@ -134,6 +138,17 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/delete/{id}', [DesignationController::class, 'delete'])->name('designation.delete');
         Route::get('/active/{id}', [DesignationController::class, 'active'])->name('designation.status.active');
         Route::get('/inactive/{id}', [DesignationController::class, 'inactive'])->name('designation.status.inactive');
+    });
+
+    Route::group(['prefix' => 'department' ],function (){
+        Route::get('', [DepartmentController::class, 'index'])->name('department');
+        Route::get('/create', [DepartmentController::class, 'create'])->name('department.create');
+        Route::post('/store', [DepartmentController::class, 'store'])->name('department.store');
+        Route::get('/edit/{id}', [DepartmentController::class, 'edit'])->name('department.edit');
+        Route::post('/update', [DepartmentController::class, 'update'])->name('department.update');
+        Route::get('/delete/{id}', [DepartmentController::class, 'delete'])->name('department.delete');
+        Route::get('/active/{id}', [DepartmentController::class, 'active'])->name('department.status.active');
+        Route::get('/inactive/{id}', [DepartmentController::class, 'inactive'])->name('department.status.inactive');
     });
 
 });
