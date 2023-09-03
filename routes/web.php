@@ -7,6 +7,7 @@ use App\Http\Controllers\DutyLocationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GroupCompanyController;
+use App\Http\Controllers\PublicHolidayController;
 use App\Http\Controllers\PunchDetailsController;
 use App\Http\Controllers\ReligionsController;
 use App\Http\Controllers\TitleController;
@@ -110,6 +111,17 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/delete/{id}', [DutyLocationController::class, 'delete'])->name('duty_locations.delete');
         Route::get('/active/{id}', [DutyLocationController::class, 'active'])->name('duty_locations.status.active');
         Route::get('/inactive/{id}', [DutyLocationController::class, 'inactive'])->name('duty_locations.status.inactive');
+    });
+
+    Route::group(['prefix' => 'public_holiday' ],function (){
+        Route::get('', [PublicHolidayController::class, 'index'])->name('public_holiday');
+        Route::get('/create', [PublicHolidayController::class, 'create'])->name('public_holiday.create');
+        Route::post('/store', [PublicHolidayController::class, 'store'])->name('public_holiday.store');
+        Route::get('/edit/{id}', [PublicHolidayController::class, 'edit'])->name('public_holiday.edit');
+        Route::post('/update', [PublicHolidayController::class, 'update'])->name('public_holiday.update');
+        Route::get('/delete/{id}', [PublicHolidayController::class, 'delete'])->name('public_holiday.delete');
+        Route::get('/active/{id}', [PublicHolidayController::class, 'active'])->name('public_holiday.status.active');
+        Route::get('/inactive/{id}', [PublicHolidayController::class, 'inactive'])->name('public_holiday.status.inactive');
     });
 
 });

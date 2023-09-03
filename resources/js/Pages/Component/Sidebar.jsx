@@ -184,6 +184,9 @@ useEffect(() => {
                                         <li>
                                             <Link href={`${base_url}/admin/duty_locations`}>{t('Duty Locations')}</Link>
                                         </li>
+                                        <li>
+                                            <Link href={`${base_url}/admin/public_holiday`}>{t('Public Holiday')}</Link>
+                                        </li>
                                     </ul>
                                 </AnimateHeight>
                             </li>
