@@ -7,6 +7,7 @@ use App\Http\Controllers\DutyLocationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GroupCompanyController;
+use App\Http\Controllers\PunchDetailsController;
 use App\Http\Controllers\ReligionsController;
 use App\Http\Controllers\TitleController;
 use App\Http\Controllers\WorkingStatusController;
@@ -24,7 +25,7 @@ Route::post('/login',[LoginController::class,'loginPost'])->name('login.post');
 Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'],'as' =>'admin.'],function() {
     Route::get('dashboard', [DashboardController::class, 'adminDashboard'])->name('dashboard');
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
-
+    Route::get('get-punch-details', [PunchDetailsController::class, 'getPunchedData'])->name('get.punch.machine.date');
 
     Route::group(['prefix' => 'group-companies' ],function (){
         Route::get('', [GroupCompanyController::class, 'index'])->name('group.company');
