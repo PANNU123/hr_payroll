@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GroupCompanyController;
 use App\Http\Controllers\ReligionsController;
 use App\Http\Controllers\TitleController;
+use App\Http\Controllers\WorkingStatusController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -73,6 +74,16 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/delete/{id}', [TitleController::class, 'delete'])->name('bank.delete');
         Route::get('/active/{id}', [TitleController::class, 'active'])->name('bank.status.active');
         Route::get('/inactive/{id}', [TitleController::class, 'inactive'])->name('bank.status.inactive');
+    });
+    Route::group(['prefix' => 'working_status' ],function (){
+        Route::get('', [WorkingStatusController::class, 'index'])->name('working_status');
+        Route::get('/create', [WorkingStatusController::class, 'create'])->name('working_status.create');
+        Route::post('/store', [WorkingStatusController::class, 'store'])->name('working_status.store');
+        Route::get('/edit/{id}', [WorkingStatusController::class, 'edit'])->name('working_status.edit');
+        Route::post('/update', [WorkingStatusController::class, 'update'])->name('working_status.update');
+        Route::get('/delete/{id}', [WorkingStatusController::class, 'delete'])->name('working_status.delete');
+        Route::get('/active/{id}', [WorkingStatusController::class, 'active'])->name('working_status.status.active');
+        Route::get('/inactive/{id}', [WorkingStatusController::class, 'inactive'])->name('working_status.status.inactive');
     });
 
 });
