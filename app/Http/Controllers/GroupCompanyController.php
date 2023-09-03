@@ -52,7 +52,7 @@ class GroupCompanyController extends Controller
     }
     public function delete($id){
         $result= $this->groupCompanyRepository->delete($id);
-        return to_route('admin.group.company')->with('success', $result['message']);
+        return back()->with('success', $result['message']);
 
     }
     public function active(){

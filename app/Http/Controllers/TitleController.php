@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BankRequest;
 use App\Http\Requests\TitleRequest;
 use App\Repositories\TitleRepository;
 use Illuminate\Http\Request;
@@ -9,22 +10,22 @@ use Inertia\Inertia;
 
 class TitleController extends Controller
 {
-    protected $religions;
+    protected $title;
     public function __construct(TitleRepository $religions)
     {
-        $this->religions = $religions;
+        $this->title = $religions;
     }
 
 
     public function index(){
-        $result = $this->religions->getAll();
-        return Inertia::render('Module/Title/Index',['result' => $result]);
+        $result = $this->title->getAll();
+        return Inertia::render('Module/Bank/Index',['result' => $result]);
     }
     public function create(){
-        return Inertia::render('Module/Title/Add');
+        return Inertia::render('Module/Bank/Add');
     }
-    public function store(TitleRequest $request){
-        $result = $this->religions->store($request);
+    public function store(BankRequest $request){
+        $result = $this->title->store($request);
         if($result['status']== true){
             return back()->with('success', $result['message']);
         }else{
@@ -32,11 +33,11 @@ class TitleController extends Controller
         }
     }
     public function edit($id){
-        $result = $this->religions->edit($id);
-        return Inertia::render('Module/Title/Edit',['result'=>$result]);
+        $result = $this->title->edit($id);
+        return Inertia::render('Module/Bank/Edit',['result'=>$result]);
     }
     public function update(Request $request){
-        $result=$this->religions->update($request);
+        $result=$this->title->update($request);
         if($result['status']== true){
             return back()->with('success', $result['message']);
         }else{
@@ -44,8 +45,8 @@ class TitleController extends Controller
         }
     }
     public function delete($id){
-        $result= $this->religions->delete($id);
-        return to_route('admin.religions')->with('success', $result['message']);
+        $result= $this->title->delete($id);
+        return back()->with('success', $result['message']);
     }
     public function active(){
 

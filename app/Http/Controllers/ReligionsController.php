@@ -46,7 +46,7 @@ class ReligionsController extends Controller
     }
     public function delete($id){
         $result= $this->religions->delete($id);
-        return to_route('admin.religions')->with('success', $result['message']);
+        return back()->with('success', $result['message']);
     }
     public function active(){
 

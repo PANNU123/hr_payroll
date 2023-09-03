@@ -64,5 +64,15 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/active/{id}', [TitleController::class, 'active'])->name('title.status.active');
         Route::get('/inactive/{id}', [TitleController::class, 'inactive'])->name('title.status.inactive');
     });
+    Route::group(['prefix' => 'bank' ],function (){
+        Route::get('', [TitleController::class, 'index'])->name('bank');
+        Route::get('/create', [TitleController::class, 'create'])->name('bank.create');
+        Route::post('/store', [TitleController::class, 'store'])->name('bank.store');
+        Route::get('/edit/{id}', [TitleController::class, 'edit'])->name('bank.edit');
+        Route::post('/update', [TitleController::class, 'update'])->name('bank.update');
+        Route::get('/delete/{id}', [TitleController::class, 'delete'])->name('bank.delete');
+        Route::get('/active/{id}', [TitleController::class, 'active'])->name('bank.status.active');
+        Route::get('/inactive/{id}', [TitleController::class, 'inactive'])->name('bank.status.inactive');
+    });
 
 });

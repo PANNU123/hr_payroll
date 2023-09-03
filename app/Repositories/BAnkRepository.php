@@ -3,10 +3,9 @@ namespace App\Repositories;
 
 
 use App\Models\Bank;
-use App\Models\Title;
 use Illuminate\Support\Facades\Auth;
 
-class TitleRepository {
+class BAnkRepository {
     protected $model;
 
     public function __construct(Bank $model)
@@ -31,7 +30,7 @@ class TitleRepository {
         try {
             $result=$this->edit($id)->delete();
             if($result){
-                 return ['status'=>true , 'message'=>'Bank Delete successfully'];
+                 return ['status'=>true , 'message'=>'Title Delete successfully'];
             }
          } catch (\Throwable $th) {
             //throw $th;
@@ -47,14 +46,13 @@ class TitleRepository {
                    ['id' =>isset( $request->id)?  $request->id : ''],
                    [
                         'name' => $request->name,
-                        'branch_code' => $request->branch_code,
-                        'branch_name' => $request->branch_name,
+                        'description' => $request->description,
                         'user_id'=>Auth::user()->id,
                         'company_id'=>$companyId
                    ]
                 );
             if ($data) {
-                $message = $action == "save" ?"Bank Save Successfully" :"Bank Update Successfully";
+                $message = $action == "save" ?"Title Save Successfully" :"Title Update Successfully";
                 return ['status' => true, 'message' => $message,];
             }
 

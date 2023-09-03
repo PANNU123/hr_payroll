@@ -54,7 +54,7 @@ class CompanyController extends Controller
     }
     public function delete($id){
         $result= $this->companyRepository->delete($id);
-        return to_route('admin.company')->with('success', $result['message']);
+        return back()->with('success', $result['message']);
     }
     public function active(){
 
