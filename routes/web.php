@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\BangladeshController;
+use App\Http\Controllers\BankController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\DutyLocationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GroupCompanyController;
@@ -66,14 +69,14 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/inactive/{id}', [TitleController::class, 'inactive'])->name('title.status.inactive');
     });
     Route::group(['prefix' => 'bank' ],function (){
-        Route::get('', [TitleController::class, 'index'])->name('bank');
-        Route::get('/create', [TitleController::class, 'create'])->name('bank.create');
-        Route::post('/store', [TitleController::class, 'store'])->name('bank.store');
-        Route::get('/edit/{id}', [TitleController::class, 'edit'])->name('bank.edit');
-        Route::post('/update', [TitleController::class, 'update'])->name('bank.update');
-        Route::get('/delete/{id}', [TitleController::class, 'delete'])->name('bank.delete');
-        Route::get('/active/{id}', [TitleController::class, 'active'])->name('bank.status.active');
-        Route::get('/inactive/{id}', [TitleController::class, 'inactive'])->name('bank.status.inactive');
+        Route::get('', [BankController::class, 'index'])->name('bank');
+        Route::get('/create', [BankController::class, 'create'])->name('bank.create');
+        Route::post('/store', [BankController::class, 'store'])->name('bank.store');
+        Route::get('/edit/{id}', [BankController::class, 'edit'])->name('bank.edit');
+        Route::post('/update', [BankController::class, 'update'])->name('bank.update');
+        Route::get('/delete/{id}', [BankController::class, 'delete'])->name('bank.delete');
+        Route::get('/active/{id}', [BankController::class, 'active'])->name('bank.status.active');
+        Route::get('/inactive/{id}', [BankController::class, 'inactive'])->name('bank.status.inactive');
     });
     Route::group(['prefix' => 'working_status' ],function (){
         Route::get('', [WorkingStatusController::class, 'index'])->name('working_status');
@@ -84,6 +87,28 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/delete/{id}', [WorkingStatusController::class, 'delete'])->name('working_status.delete');
         Route::get('/active/{id}', [WorkingStatusController::class, 'active'])->name('working_status.status.active');
         Route::get('/inactive/{id}', [WorkingStatusController::class, 'inactive'])->name('working_status.status.inactive');
+    });
+
+    Route::group(['prefix' => 'bangladesh' ],function (){
+        Route::get('', [BangladeshController::class, 'index'])->name('bangladesh');
+        Route::get('/create', [BangladeshController::class, 'create'])->name('bangladesh.create');
+        Route::post('/store', [BangladeshController::class, 'store'])->name('bangladesh.store');
+        Route::get('/edit/{id}', [BangladeshController::class, 'edit'])->name('bangladesh.edit');
+        Route::post('/update', [BangladeshController::class, 'update'])->name('bangladesh.update');
+        Route::get('/delete/{id}', [BangladeshController::class, 'delete'])->name('bangladesh.delete');
+        Route::get('/active/{id}', [BangladeshController::class, 'active'])->name('bangladesh.status.active');
+        Route::get('/inactive/{id}', [BangladeshController::class, 'inactive'])->name('bangladesh.status.inactive');
+    });
+
+    Route::group(['prefix' => 'duty_locations' ],function (){
+        Route::get('', [DutyLocationController::class, 'index'])->name('duty_locations');
+        Route::get('/create', [DutyLocationController::class, 'create'])->name('duty_locations.create');
+        Route::post('/store', [DutyLocationController::class, 'store'])->name('duty_locations.store');
+        Route::get('/edit/{id}', [DutyLocationController::class, 'edit'])->name('duty_locations.edit');
+        Route::post('/update', [DutyLocationController::class, 'update'])->name('duty_locations.update');
+        Route::get('/delete/{id}', [DutyLocationController::class, 'delete'])->name('duty_locations.delete');
+        Route::get('/active/{id}', [DutyLocationController::class, 'active'])->name('duty_locations.status.active');
+        Route::get('/inactive/{id}', [DutyLocationController::class, 'inactive'])->name('duty_locations.status.inactive');
     });
 
 });

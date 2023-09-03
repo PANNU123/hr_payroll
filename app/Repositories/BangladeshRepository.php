@@ -2,19 +2,27 @@
 namespace App\Repositories;
 
 
-use App\Models\Title;
+use App\Models\Bangladesh;
 use Illuminate\Support\Facades\Auth;
 
-class TitleRepository {
+class BangladeshRepository {
     protected $model;
 
-    public function __construct(Title $model)
+    public function __construct(Bangladesh $model)
     {
         $this->model=$model;
     }
 
     public function getAll(){
-        return $this->model::all();
+        $chunkSize = 100;
+        $allData = [];
+
+        $this->model::chunk($chunkSize, function ($records) use (&$allData) {
+            $allData = array_merge($allData, $records->toArray());
+        });
+
+        return $allData;
+//        return $this->model::get();
     }
     public function store($request){
         return $this->storeOrUpdate($request , $action="save");
@@ -30,7 +38,7 @@ class TitleRepository {
         try {
             $result=$this->edit($id)->delete();
             if($result){
-                 return ['status'=>true , 'message'=>'Title Delete successfully'];
+                 return ['status'=>true , 'message'=>'Bangladesh Delete successfully'];
             }
          } catch (\Throwable $th) {
             //throw $th;
@@ -45,14 +53,15 @@ class TitleRepository {
                $data = $this->model::updateOrCreate(
                    ['id' =>isset( $request->id)?  $request->id : ''],
                    [
-                        'name' => $request->name,
-                        'description' => $request->description,
-                        'user_id'=>Auth::user()->id,
-                        'company_id'=>$companyId
+                        'division' => $request->division,
+                        'district' => $request->district,
+                        'thana' => $request->thana,
+                        'post_office' => $request->post_office,
+                        'post_code' => $request->post_code,
                    ]
                 );
             if ($data) {
-                $message = $action == "save" ?"Title Save Successfully" :"Title Update Successfully";
+                $message = $action == "save" ?"Bangladesh Save Successfully" :"Bangladesh Update Successfully";
                 return ['status' => true, 'message' => $message,];
             }
 

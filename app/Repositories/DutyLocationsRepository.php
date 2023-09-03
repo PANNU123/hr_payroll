@@ -2,13 +2,13 @@
 namespace App\Repositories;
 
 
-use App\Models\Bank;
+use App\Models\DutyLocations;
 use Illuminate\Support\Facades\Auth;
 
-class BAnkRepository {
+class DutyLocationsRepository {
     protected $model;
 
-    public function __construct(Bank $model)
+    public function __construct(DutyLocations $model)
     {
         $this->model=$model;
     }
@@ -30,7 +30,7 @@ class BAnkRepository {
         try {
             $result=$this->edit($id)->delete();
             if($result){
-                 return ['status'=>true , 'message'=>'Title Delete successfully'];
+                 return ['status'=>true , 'message'=>'Location Delete successfully'];
             }
          } catch (\Throwable $th) {
             //throw $th;
@@ -45,14 +45,14 @@ class BAnkRepository {
                $data = $this->model::updateOrCreate(
                    ['id' =>isset( $request->id)?  $request->id : ''],
                    [
-                        'name' => $request->name,
+                        'location' => $request->location,
                         'description' => $request->description,
                         'user_id'=>Auth::user()->id,
                         'company_id'=>$companyId
                    ]
                 );
             if ($data) {
-                $message = $action == "save" ?"Title Save Successfully" :"Title Update Successfully";
+                $message = $action == "save" ?"Location Save Successfully" :"Location Update Successfully";
                 return ['status' => true, 'message' => $message,];
             }
 

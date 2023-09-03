@@ -2,30 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\BankRequest;
-use App\Http\Requests\TitleRequest;
-use App\Repositories\TitleRepository;
+use App\Http\Requests\DutyLocationRequest;
+use App\Repositories\DutyLocationsRepository;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class TitleController extends Controller
+class DutyLocationController extends Controller
 {
-    protected $title;
-    public function __construct(TitleRepository $religions)
+    protected $duty_location;
+    public function __construct(DutyLocationsRepository $duty_location)
     {
-        $this->title = $religions;
+        $this->duty_location = $duty_location;
     }
 
 
     public function index(){
-        $result = $this->title->getAll();
-        return Inertia::render('Module/Title/Index',['result' => $result]);
+        $result = $this->duty_location->getAll();
+        return Inertia::render('Module/DutyLocation/Index',['result' => $result]);
     }
     public function create(){
-        return Inertia::render('Module/Title/Add');
+        return Inertia::render('Module/DutyLocation/Add');
     }
-    public function store(TitleRequest $request){
-        $result = $this->title->store($request);
+    public function store(DutyLocationRequest $request){
+        $result = $this->duty_location->store($request);
         if($result['status']== true){
             return back()->with('success', $result['message']);
         }else{
@@ -33,11 +32,11 @@ class TitleController extends Controller
         }
     }
     public function edit($id){
-        $result = $this->title->edit($id);
-        return Inertia::render('Module/Title/Edit',['result'=>$result]);
+        $result = $this->duty_location->edit($id);
+        return Inertia::render('Module/DutyLocation/Edit',['result'=>$result]);
     }
     public function update(Request $request){
-        $result=$this->title->update($request);
+        $result=$this->duty_location->update($request);
         if($result['status']== true){
             return back()->with('success', $result['message']);
         }else{
@@ -45,7 +44,7 @@ class TitleController extends Controller
         }
     }
     public function delete($id){
-        $result= $this->title->delete($id);
+        $result= $this->duty_location->delete($id);
         return back()->with('success', $result['message']);
     }
     public function active(){
