@@ -3,6 +3,7 @@
 use App\Http\Controllers\BangladeshController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\DutyLocationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
@@ -122,6 +123,17 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/delete/{id}', [PublicHolidayController::class, 'delete'])->name('public_holiday.delete');
         Route::get('/active/{id}', [PublicHolidayController::class, 'active'])->name('public_holiday.status.active');
         Route::get('/inactive/{id}', [PublicHolidayController::class, 'inactive'])->name('public_holiday.status.inactive');
+    });
+
+    Route::group(['prefix' => 'designation' ],function (){
+        Route::get('', [DesignationController::class, 'index'])->name('designation');
+        Route::get('/create', [DesignationController::class, 'create'])->name('designation.create');
+        Route::post('/store', [DesignationController::class, 'store'])->name('designation.store');
+        Route::get('/edit/{id}', [DesignationController::class, 'edit'])->name('designation.edit');
+        Route::post('/update', [DesignationController::class, 'update'])->name('designation.update');
+        Route::get('/delete/{id}', [DesignationController::class, 'delete'])->name('designation.delete');
+        Route::get('/active/{id}', [DesignationController::class, 'active'])->name('designation.status.active');
+        Route::get('/inactive/{id}', [DesignationController::class, 'inactive'])->name('designation.status.inactive');
     });
 
 });
