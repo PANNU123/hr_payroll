@@ -6,7 +6,7 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import { useTranslation } from 'react-i18next';
 
 function Sidebar() {
-    const { base_url } = usePage().props
+    const { url,base_url } = usePage().props
 
 const [toggleSidebar, setToggleSidebar] = useState(true);
 const [currentMenu, setCurrentMenu] = useState('');
@@ -167,34 +167,37 @@ useEffect(() => {
                                 <AnimateHeight duration={300} height={currentMenu === 'configuration' ? 'auto' : 0}>
                                     <ul className="sub-menu text-gray-500">
                                         <li>
-                                            <Link href={`${base_url}/admin/religions`} method='get'>{t('Religions')}</Link>
+                                            <Link className={url === `${base_url}/admin/religions`? 'active' : ''} href={`${base_url}/admin/religions`} method='get'>{t('Religions')}</Link>
                                         </li>
                                         <li>
-                                            <Link href={`${base_url}/admin/title`}>{t('Title')}</Link>
+                                            <Link className={url === `${base_url}/admin/title`? 'active' : ''} href={`${base_url}/admin/title`}>{t('Title')}</Link>
                                         </li>
                                         <li>
-                                            <Link href={`${base_url}/admin/bank`}>{t('Bank')}</Link>
+                                            <Link className={url === `${base_url}/admin/bank`? 'active' : ''} href={`${base_url}/admin/bank`}>{t('Bank')}</Link>
                                         </li>
                                         <li>
-                                            <Link href={`${base_url}/admin/working_status`}>{t('Working Status')}</Link>
+                                            <Link className={url === `${base_url}/admin/working_status`? 'active' : ''} href={`${base_url}/admin/working_status`}>{t('Working Status')}</Link>
                                         </li>
                                         {/*<li>*/}
                                         {/*    <Link href={`${base_url}/admin/bangladesh`}>{t('Bangladesh')}</Link>*/}
                                         {/*</li>*/}
                                         <li>
-                                            <Link href={`${base_url}/admin/duty_locations`}>{t('Duty Locations')}</Link>
+                                            <Link className={url === `${base_url}/admin/duty_locations`? 'active' : ''} href={`${base_url}/admin/duty_locations`}>{t('Duty Locations')}</Link>
                                         </li>
                                         <li>
-                                            <Link href={`${base_url}/admin/public_holiday`}>{t('Public Holiday')}</Link>
+                                            <Link className={url === `${base_url}/admin/public_holiday`? 'active' : ''} href={`${base_url}/admin/public_holiday`}>{t('Public Holiday')}</Link>
                                         </li>
                                         <li>
-                                            <Link href={`${base_url}/admin/designation`}>{t('Designation')}</Link>
+                                            <Link className={url === `${base_url}/admin/designation`? 'active' : ''} href={`${base_url}/admin/designation`}>{t('Designation')}</Link>
                                         </li>
                                         <li>
-                                            <Link href={`${base_url}/admin/department`}>{t('Department')}</Link>
+                                            <Link className={url === `${base_url}/admin/department`? 'active' : ''} href={`${base_url}/admin/department`}>{t('Department')}</Link>
                                         </li>
                                         <li>
-                                            <Link href={`${base_url}/admin/section`}>{t('Section')}</Link>
+                                            <Link className={url === `${base_url}/admin/section`? 'active' : ''} href={`${base_url}/admin/section`}>{t('Section')}</Link>
+                                        </li>
+                                        <li>
+                                            <Link className={url === `${base_url}/admin/notice`? 'active' : ''} href={`${base_url}/admin/notice`}>{t('Notice')}</Link>
                                         </li>
                                     </ul>
                                 </AnimateHeight>
