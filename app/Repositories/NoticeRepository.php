@@ -3,6 +3,7 @@ namespace App\Repositories;
 
 
 use App\Models\Notice;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -61,14 +62,19 @@ class NoticeRepository {
         try {
             $companyId = \App\Models\User::where('id', auth()->user()->id)->value('company_id');
 
-            if($request->hasFile('file_path')){
+            if($request->file_path){
 
                 $getContent = file_get_contents($request->file_path);
+                // Check if the content is empty or if the file doesn't exist
+                if ($getContent === false) {
+                    return ['status' => false, 'message' => 'File not found or unable to read content'];
+                }
                 $fileInfo = pathinfo($request->file_path);
                 $extension = $request->file_path->extension();
                 $folderName = "notice";
                 $image = $getContent;
                 $fileName = time() . '.' . $extension;
+                // Create directory if it doesn't exist
                 if (!Storage::disk('public')->exists($folderName)) {
                     Storage::disk('public')->makeDirectory($folderName, 0775, true);
                 }
@@ -82,13 +88,13 @@ class NoticeRepository {
                    ['id' =>isset( $request->id)?  $request->id : ''],
                    [
                         'title' => $request->title,
-                        'notice_date' => $request->notice_date,
+                        'notice_date' => isset($request->notice_date) ? $request->notice_date : Carbon::now()->format('Y-m-d'),
                         'expiry_date' => $request->expiry_date,
                         'sender' => $request->sender,
-                        'type' => $request->type,
-                        'confidentiality' => $request->confidentiality,
-                        'receiver' => $request->receiver,
-                        'file_path' => $path,
+                        'type' => isset($request->type) ? $request->type : "D",
+                        'confidentiality' => isset($request->confidentiality) ? $request->confidentiality : "P",
+                        'receiver' => isset($request->receiver) ? $request->receiver : "A",
+                        'file_path' => isset($path) ? $path : null,
                         'description' => $request->description,
                         'user_id'=>Auth::user()->id,
                         'company_id'=>$companyId
