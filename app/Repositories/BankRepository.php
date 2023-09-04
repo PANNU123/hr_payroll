@@ -38,6 +38,23 @@ class BankRepository {
          }
 
     }
+    public function status($id){
+        try {
+            $result = $this->model::find($id);
+            if ($result->status == 1) {
+                $result->update(['status' => 0]);
+                return ['status' => true, 'message' => 'Status updated successfully'];
+            } elseif ($result->status == 0) {
+                $result->update(['status' => 1]);
+                return ['status' => true, 'message' => 'Status updated successfully'];
+            } else {
+                return ['status' => false, 'message' => 'Invalid status value'];
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+            return ['status' => false, 'errors' =>  $th->getMessage()];
+        }
+    }
     protected function storeOrUpdate($request, $action)
     {
         try {

@@ -47,10 +47,8 @@ class DesignationController extends Controller
         $result= $this->designation->delete($id);
         return back()->with('success', $result['message']);
     }
-    public function active(){
-
-    }
-    public function inactive(){
-
+    public function status($id){
+        $result = $this->designation->status($id);
+        return back()->with('success', $result['message']);
     }
 }

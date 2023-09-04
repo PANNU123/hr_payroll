@@ -11,16 +11,16 @@ use Illuminate\Http\Request;
 class CompanyController extends Controller
 {
 
-    protected $companyRepository;
+    protected $company;
 
-    public function __construct(CompanyRepository $companyRepository)
+    public function __construct(CompanyRepository $company)
     {
-        $this->companyRepository = $companyRepository;
+        $this->company = $company;
     }
 
 
     public function index(){
-        $result = $this->companyRepository->getAll();
+        $result = $this->company->getAll();
         return Inertia::render('Module/Company/Index',['result' => $result]);
     }
     public function create(){
@@ -28,7 +28,7 @@ class CompanyController extends Controller
         return Inertia::render('Module/Company/Add',['group_company_list'=>$group_company_list]);
     }
     public function store(CompanyRequest $request){
-        $result = $this->companyRepository->store($request);
+        $result = $this->company->store($request);
         if($result['status']== true){
 //            return to_route('admin.company')->with('success', $result['message']);
             return back()->with('success', $result['message']);
@@ -39,11 +39,11 @@ class CompanyController extends Controller
     }
     public function edit($id){
         $group_company_list = GroupCompany::select('id','name')->get();
-        $result = $this->companyRepository->edit($id);
+        $result = $this->company->edit($id);
         return Inertia::render('Module/Company/Edit',['result' => $result,'group_company_list'=>$group_company_list]);
     }
     public function update(Request $request){
-        $result=$this->companyRepository->update($request);
+        $result=$this->company->update($request);
         if($result['status']== true){
 //            return to_route('admin.company')->with('success', $result['message']);
             return back()->with('success', $result['message']);
@@ -53,13 +53,11 @@ class CompanyController extends Controller
         }
     }
     public function delete($id){
-        $result= $this->companyRepository->delete($id);
+        $result= $this->company->delete($id);
         return back()->with('success', $result['message']);
     }
-    public function active(){
-
-    }
-    public function inactive(){
-
+    public function status($id){
+        $result = $this->company->status($id);
+        return back()->with('success', $result['message']);
     }
 }

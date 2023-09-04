@@ -48,10 +48,8 @@ class ReligionsController extends Controller
         $result= $this->religions->delete($id);
         return back()->with('success', $result['message']);
     }
-    public function active(){
-
-    }
-    public function inactive(){
-
+    public function status($id){
+        $result = $this->religions->status($id);
+        return back()->with('success', $result['message']);
     }
 }

@@ -67,11 +67,14 @@ function Index({ result }) {
     //     return status[random];
     // };
 
-    function editGroupCompany(result) {
+    function editData(result) {
         router.get("/admin/public_holiday/edit/" + result.id);
     }
-    function deleteGroupCompany(result) {
+    function deleteData(result) {
         router.get("/admin/public_holiday/delete/" + result.id);
+    }
+    function statusChanged(result) {
+        router.get("/admin/public_holiday/status/" + result.id);
     }
     return (
         <>
@@ -161,6 +164,21 @@ function Index({ result }) {
                                 title: "Total Days",
                             },
                             {
+                                accessor: "status",
+                                title:"Status",
+                                titleClassName: "text-center",
+                                render: (result) => (
+                                    <label className="w-12 h-6 relative"
+                                           onClick={() =>
+                                               statusChanged(result)
+                                           }
+                                    >
+                                        <input defaultChecked={result.status === 1} type="checkbox" className="custom_switch absolute w-full h-full opacity-0 z-10 cursor-pointer peer" id="custom_switch_checkbox1"  />
+                                        <span className="bg-[#ebedf2] dark:bg-dark block h-full rounded-full before:absolute before:left-1 before:bg-white dark:before:bg-white-dark dark:peer-checked:before:bg-white before:bottom-1 before:w-4 before:h-4 before:rounded-full peer-checked:before:left-7 peer-checked:bg-primary before:transition-all before:duration-300"></span>
+                                    </label>
+                                ),
+                            },
+                            {
                                 accessor: "action",
                                 title: "Action",
                                 titleClassName: "!text-center",
@@ -169,7 +187,7 @@ function Index({ result }) {
                                         <Tippy content="Edit">
                                             <svg
                                                 onClick={() =>
-                                                    editGroupCompany(result)
+                                                    editData(result)
                                                 }
                                                 width="24"
                                                 height="24"
@@ -194,7 +212,7 @@ function Index({ result }) {
                                         <Tippy content="Delete">
                                             <svg
                                                 onClick={() =>
-                                                    deleteGroupCompany(result)
+                                                    deleteData(result)
                                                 }
                                                 width="24"
                                                 height="24"

@@ -46,10 +46,8 @@ class BankController extends Controller
         $result= $this->bank->delete($id);
         return back()->with('success', $result['message']);
     }
-    public function active(){
-
-    }
-    public function inactive(){
-
+    public function status($id){
+        $result = $this->bank->status($id);
+        return back()->with('success', $result['message']);
     }
 }

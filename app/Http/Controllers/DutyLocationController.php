@@ -47,10 +47,8 @@ class DutyLocationController extends Controller
         $result= $this->duty_location->delete($id);
         return back()->with('success', $result['message']);
     }
-    public function active(){
-
-    }
-    public function inactive(){
-
+    public function status($id){
+        $result = $this->duty_location->status($id);
+        return back()->with('success', $result['message']);
     }
 }

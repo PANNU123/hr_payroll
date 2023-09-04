@@ -47,10 +47,8 @@ class BangladeshController extends Controller
         $result= $this->bangladesh->delete($id);
         return back()->with('success', $result['message']);
     }
-    public function active(){
-
-    }
-    public function inactive(){
-
+    public function status($id){
+        $result = $this->bangladesh->status($id);
+        return back()->with('success', $result['message']);
     }
 }

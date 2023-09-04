@@ -80,6 +80,9 @@ function Index({ result }) {
     function deleteGroupCompany(result) {
         router.get("/admin/bank/delete/" + result.id);
     }
+    function statusChanged(result) {
+        router.get("/admin/bank/status/" + result.id);
+    }
     return (
         <>
             <FlashMessage flash={flash} />

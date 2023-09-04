@@ -55,10 +55,8 @@ class GroupCompanyController extends Controller
         return back()->with('success', $result['message']);
 
     }
-    public function active(){
-
-    }
-    public function inactive(){
-
+    public function status($id){
+        $result = $this->groupCompanyRepository->status($id);
+        return back()->with('success', $result['message']);
     }
 }

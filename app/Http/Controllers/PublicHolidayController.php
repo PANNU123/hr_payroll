@@ -48,10 +48,8 @@ class PublicHolidayController extends Controller
         $result= $this->public_holiday->delete($id);
         return back()->with('success', $result['message']);
     }
-    public function active(){
-
-    }
-    public function inactive(){
-
+    public function status($id){
+        $result = $this->public_holiday->status($id);
+        return back()->with('success', $result['message']);
     }
 }

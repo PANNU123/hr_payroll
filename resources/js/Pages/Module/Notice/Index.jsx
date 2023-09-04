@@ -67,10 +67,10 @@ function Index({ result }) {
     //     return status[random];
     // };
 
-    function editGroupCompany(result) {
+    function editData(result) {
         router.get("/admin/notice/edit/" + result.id);
     }
-    function deleteGroupCompany(result) {
+    function deleteData(result) {
         router.get("/admin/notice/delete/" + result.id);
     }
     function statusChanged(result) {
@@ -175,7 +175,7 @@ function Index({ result }) {
                                         <Tippy content="Edit">
                                             <svg
                                                 onClick={() =>
-                                                    editGroupCompany(result)
+                                                    editData(result)
                                                 }
                                                 width="24"
                                                 height="24"
@@ -200,7 +200,7 @@ function Index({ result }) {
                                         <Tippy content="Delete">
                                             <svg
                                                 onClick={() =>
-                                                    deleteGroupCompany(result)
+                                                    deleteData(result)
                                                 }
                                                 width="24"
                                                 height="24"

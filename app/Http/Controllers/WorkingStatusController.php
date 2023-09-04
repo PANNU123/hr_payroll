@@ -47,10 +47,8 @@ class WorkingStatusController extends Controller
         $result= $this->working_status->delete($id);
         return back()->with('success', $result['message']);
     }
-    public function active(){
-
-    }
-    public function inactive(){
-
+    public function status($id){
+        $result = $this->working_status->status($id);
+        return back()->with('success', $result['message']);
     }
 }

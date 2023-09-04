@@ -73,6 +73,9 @@ function Index({ result }) {
     function deleteGroupCompany(result) {
         router.get("/admin/bangladesh/delete/" + result.id);
     }
+    function statusChanged(result) {
+        router.get("/admin/bangladesh/status/" + result.id);
+    }
     return (
         <>
             <FlashMessage flash={flash} />

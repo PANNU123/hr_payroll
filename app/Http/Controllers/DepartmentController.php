@@ -52,10 +52,8 @@ class DepartmentController extends Controller
         $result= $this->department->delete($id);
         return back()->with('success', $result['message']);
     }
-    public function active(){
-
-    }
-    public function inactive(){
-
+    public function status($id){
+        $result = $this->department->status($id);
+        return back()->with('success', $result['message']);
     }
 }

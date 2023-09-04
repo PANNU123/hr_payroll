@@ -41,8 +41,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/edit/{id}', [GroupCompanyController::class, 'edit'])->name('group.company.edit');
         Route::post('/update', [GroupCompanyController::class, 'update'])->name('group.company.update');
         Route::get('/delete/{id}', [GroupCompanyController::class, 'delete'])->name('group.company.delete');
-        Route::get('/active/{id}', [GroupCompanyController::class, 'active'])->name('group.company.status.active');
-        Route::get('/inactive/{id}', [GroupCompanyController::class, 'inactive'])->name('group.company.status.inactive');
+        Route::get('/status/{id}', [GroupCompanyController::class, 'status'])->name('notice.status');
     });
 
     Route::group(['prefix' => 'companies' ],function (){
@@ -52,8 +51,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/edit/{id}', [CompanyController::class, 'edit'])->name('company.edit');
         Route::post('/update', [CompanyController::class, 'update'])->name('company.update');
         Route::get('/delete/{id}', [CompanyController::class, 'delete'])->name('company.delete');
-        Route::get('/active/{id}', [CompanyController::class, 'active'])->name('company.status.active');
-        Route::get('/inactive/{id}', [CompanyController::class, 'inactive'])->name('company.status.inactive');
+        Route::get('/status/{id}', [CompanyController::class, 'status'])->name('notice.status');
     });
 
     Route::group(['prefix' => 'religions' ],function (){
@@ -63,8 +61,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/edit/{id}', [ReligionsController::class, 'edit'])->name('religions.edit');
         Route::post('/update', [ReligionsController::class, 'update'])->name('religions.update');
         Route::get('/delete/{id}', [ReligionsController::class, 'delete'])->name('religions.delete');
-        Route::get('/active/{id}', [ReligionsController::class, 'active'])->name('religions.status.active');
-        Route::get('/inactive/{id}', [ReligionsController::class, 'inactive'])->name('religions.status.inactive');
+        Route::get('/status/{id}', [ReligionsController::class, 'status'])->name('notice.status');
     });
     Route::group(['prefix' => 'title' ],function (){
         Route::get('', [TitleController::class, 'index'])->name('title');
@@ -73,8 +70,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/edit/{id}', [TitleController::class, 'edit'])->name('title.edit');
         Route::post('/update', [TitleController::class, 'update'])->name('title.update');
         Route::get('/delete/{id}', [TitleController::class, 'delete'])->name('title.delete');
-        Route::get('/active/{id}', [TitleController::class, 'active'])->name('title.status.active');
-        Route::get('/inactive/{id}', [TitleController::class, 'inactive'])->name('title.status.inactive');
+        Route::get('/status/{id}', [TitleController::class, 'status'])->name('notice.status');
     });
     Route::group(['prefix' => 'bank' ],function (){
         Route::get('', [BankController::class, 'index'])->name('bank');
@@ -83,8 +79,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/edit/{id}', [BankController::class, 'edit'])->name('bank.edit');
         Route::post('/update', [BankController::class, 'update'])->name('bank.update');
         Route::get('/delete/{id}', [BankController::class, 'delete'])->name('bank.delete');
-        Route::get('/active/{id}', [BankController::class, 'active'])->name('bank.status.active');
-        Route::get('/inactive/{id}', [BankController::class, 'inactive'])->name('bank.status.inactive');
+        Route::get('/status/{id}', [BankController::class, 'status'])->name('notice.status');
     });
     Route::group(['prefix' => 'working_status' ],function (){
         Route::get('', [WorkingStatusController::class, 'index'])->name('working_status');
@@ -93,8 +88,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/edit/{id}', [WorkingStatusController::class, 'edit'])->name('working_status.edit');
         Route::post('/update', [WorkingStatusController::class, 'update'])->name('working_status.update');
         Route::get('/delete/{id}', [WorkingStatusController::class, 'delete'])->name('working_status.delete');
-        Route::get('/active/{id}', [WorkingStatusController::class, 'active'])->name('working_status.status.active');
-        Route::get('/inactive/{id}', [WorkingStatusController::class, 'inactive'])->name('working_status.status.inactive');
+        Route::get('/status/{id}', [WorkingStatusController::class, 'status'])->name('notice.status');
     });
 
     Route::group(['prefix' => 'bangladesh' ],function (){
@@ -104,8 +98,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/edit/{id}', [BangladeshController::class, 'edit'])->name('bangladesh.edit');
         Route::post('/update', [BangladeshController::class, 'update'])->name('bangladesh.update');
         Route::get('/delete/{id}', [BangladeshController::class, 'delete'])->name('bangladesh.delete');
-        Route::get('/active/{id}', [BangladeshController::class, 'active'])->name('bangladesh.status.active');
-        Route::get('/inactive/{id}', [BangladeshController::class, 'inactive'])->name('bangladesh.status.inactive');
+        Route::get('/status/{id}', [BangladeshController::class, 'status'])->name('notice.status');
     });
 
     Route::group(['prefix' => 'duty_locations' ],function (){
@@ -115,8 +108,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/edit/{id}', [DutyLocationController::class, 'edit'])->name('duty_locations.edit');
         Route::post('/update', [DutyLocationController::class, 'update'])->name('duty_locations.update');
         Route::get('/delete/{id}', [DutyLocationController::class, 'delete'])->name('duty_locations.delete');
-        Route::get('/active/{id}', [DutyLocationController::class, 'active'])->name('duty_locations.status.active');
-        Route::get('/inactive/{id}', [DutyLocationController::class, 'inactive'])->name('duty_locations.status.inactive');
+        Route::get('/status/{id}', [DutyLocationController::class, 'status'])->name('notice.status');
     });
 
     Route::group(['prefix' => 'public_holiday' ],function (){
@@ -126,8 +118,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/edit/{id}', [PublicHolidayController::class, 'edit'])->name('public_holiday.edit');
         Route::post('/update', [PublicHolidayController::class, 'update'])->name('public_holiday.update');
         Route::get('/delete/{id}', [PublicHolidayController::class, 'delete'])->name('public_holiday.delete');
-        Route::get('/active/{id}', [PublicHolidayController::class, 'active'])->name('public_holiday.status.active');
-        Route::get('/inactive/{id}', [PublicHolidayController::class, 'inactive'])->name('public_holiday.status.inactive');
+        Route::get('/status/{id}', [DepartmentController::class, 'status'])->name('notice.status');
     });
 
     Route::group(['prefix' => 'designation' ],function (){
@@ -137,8 +128,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/edit/{id}', [DesignationController::class, 'edit'])->name('designation.edit');
         Route::post('/update', [DesignationController::class, 'update'])->name('designation.update');
         Route::get('/delete/{id}', [DesignationController::class, 'delete'])->name('designation.delete');
-        Route::get('/active/{id}', [DesignationController::class, 'active'])->name('designation.status.active');
-        Route::get('/inactive/{id}', [DesignationController::class, 'inactive'])->name('designation.status.inactive');
+        Route::get('/status/{id}', [DepartmentController::class, 'status'])->name('notice.status');
     });
 
     Route::group(['prefix' => 'department' ],function (){
@@ -148,8 +138,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/edit/{id}', [DepartmentController::class, 'edit'])->name('department.edit');
         Route::post('/update', [DepartmentController::class, 'update'])->name('department.update');
         Route::get('/delete/{id}', [DepartmentController::class, 'delete'])->name('department.delete');
-        Route::get('/active/{id}', [DepartmentController::class, 'active'])->name('department.status.active');
-        Route::get('/inactive/{id}', [DepartmentController::class, 'inactive'])->name('department.status.inactive');
+        Route::get('/status/{id}', [DepartmentController::class, 'status'])->name('notice.status');
     });
 
     Route::group(['prefix' => 'section' ],function (){
@@ -159,8 +148,7 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/edit/{id}', [SectionController::class, 'edit'])->name('section.edit');
         Route::post('/update', [SectionController::class, 'update'])->name('section.update');
         Route::get('/delete/{id}', [SectionController::class, 'delete'])->name('section.delete');
-        Route::get('/active/{id}', [SectionController::class, 'active'])->name('section.status.active');
-        Route::get('/inactive/{id}', [SectionController::class, 'inactive'])->name('section.status.inactive');
+        Route::get('/status/{id}', [SectionController::class, 'status'])->name('notice.status');
     });
 
     Route::group(['prefix' => 'notice' ],function (){

@@ -53,10 +53,8 @@ class SectionController extends Controller
         $result= $this->section->delete($id);
         return back()->with('success', $result['message']);
     }
-    public function active(){
-
-    }
-    public function inactive(){
-
+    public function status($id){
+        $result = $this->section->status($id);
+        return back()->with('success', $result['message']);
     }
 }
