@@ -260,6 +260,6 @@ function Index({ result }) {
     );
 }
 Index.layout = (page) => (
-    <MainLayout children={page} title="HR || Group Of Company" />
+    <MainLayout children={page} title="HR || Public Holiday" />
 );
 export default Index;

@@ -142,7 +142,7 @@ function Add({ group_company_list }) {
 }
 
 Add.layout = (page) => (
-    <MainLayout children={page} title="HR || Add Group Of Company" />
+    <MainLayout children={page} title="HR || Add Bank" />
 );
 
 export default Add;

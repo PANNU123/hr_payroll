@@ -34,7 +34,7 @@ function Index({ result }) {
         setInitialRecords2(() => {
             return result.filter((item) => {
                 return (
-                    item.location.toLowerCase().includes(search2.toLowerCase())
+                    item.name.toLowerCase().includes(search2.toLowerCase())
                 );
             });
         });
@@ -68,10 +68,10 @@ function Index({ result }) {
     // };
 
     function editGroupCompany(result) {
-        router.get("/admin/duty_locations/edit/" + result.id);
+        router.get("/admin/section/edit/" + result.id);
     }
     function deleteGroupCompany(result) {
-        router.get("/admin/duty_locations/delete/" + result.id);
+        router.get("/admin/section/delete/" + result.id);
     }
     return (
         <>
@@ -103,7 +103,7 @@ function Index({ result }) {
                 <ul className="flex space-x-2 rtl:space-x-reverse">
                     <li>
                         <Link href="#" className="text-primary hover:underline">
-                            Duty Locations
+                            Designation
                         </Link>
                     </li>
                     <li className="before:content-['/'] ltr:before:mr-2 rtl:before:ml-2">
@@ -115,7 +115,7 @@ function Index({ result }) {
             <div className="panel mt-6">
                 <div className="flex md:items-center md:flex-row flex-col mb-5 gap-5">
                     <h5 className="font-semibold text-lg dark:text-white-light">
-                        Duty Locations
+                        Designation
                     </h5>
                     <div className="ltr:ml-auto rtl:mr-auto">
                         <input
@@ -127,7 +127,7 @@ function Index({ result }) {
                         />
                     </div>
                     <Link
-                        href={`${base_url}/admin/duty_locations/create`}
+                        href={`${base_url}/admin/section/create`}
                         method="get"
                         className="px-7 py-2 bg-indigo-600 text-white rounded-md text-[15px]"
                     >
@@ -140,13 +140,21 @@ function Index({ result }) {
                         records={recordsData2}
                         columns={[
                             {
-                                accessor: "location",
-                                title: "Location",
-                                render: ({ location }) => (
+                                accessor: "name",
+                                title: "Name",
+                                render: ({ name }) => (
                                     <div className="flex items-center w-max">
-                                        <div>{location}</div>
+                                        <div>{name}</div>
                                     </div>
                                 ),
+                            },
+                            {
+                                accessor: "short_name",
+                                title: "Short Name",
+                            },
+                            {
+                                accessor: "section_code",
+                                title: "Section Code",
                             },
                             {
                                 accessor: "action",
@@ -248,6 +256,6 @@ function Index({ result }) {
     );
 }
 Index.layout = (page) => (
-    <MainLayout children={page} title="HR || Duty Location" />
+    <MainLayout children={page} title="HR || Section" />
 );
 export default Index;

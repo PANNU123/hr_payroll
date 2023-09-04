@@ -23,5 +23,15 @@ class UserTableSeeder extends Seeder
             'password'=>Hash::make('secret'),
             'status'=>1,
         ]);
+
+        User::create([
+            'company_id'=>1,
+            'username'=>'pannu294',
+            'first_name'=>'Md Pannu',
+            'last_name'=>'Hossain',
+            'email'=>'pannu@admin.com',
+            'password'=>Hash::make('secret'),
+            'status'=>1,
+        ]);
     }
 }

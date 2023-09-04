@@ -6,17 +6,19 @@ import "react-quill/dist/quill.snow.css";
 import FlashMessage from "../../Component/FlashMessage.jsx";
 
 function Add({ group_company_list }) {
-    const {  flash ,users } = usePage().props;
+    const {  flash ,users,departments } = usePage().props;
     const { errors } = usePage().props;
     const [values, setValues] = useState({
         name:"",
         short_name:"",
-        department_code:"",
+        section_code:"",
         started_from:"",
         top_rank:"",
         report_to:"",
         headed_by:"",
         second_man:"",
+        department_id:"",
+        email:""
     });
 
     function handleChange(e) {
@@ -29,10 +31,10 @@ function Add({ group_company_list }) {
     }
     function handleSubmit(e) {
         e.preventDefault();
-        // console.log(values);
-        router.post("/admin/department/store", values);
+        router.post("/admin/section/store", values);
         setValues({
             name:"",
+            section_code:"",
             short_name:"",
             department_code:"",
             started_from:"",
@@ -40,6 +42,8 @@ function Add({ group_company_list }) {
             report_to:"",
             headed_by:"",
             second_man:"",
+            department_id:"",
+            email:""
         })
     }
     return (
@@ -93,7 +97,8 @@ function Add({ group_company_list }) {
                             onSubmit={handleSubmit}
                             method="post"
                         >
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+
                                 <div>
                                     <label htmlFor="name">Name</label>
                                     <input
@@ -126,17 +131,38 @@ function Add({ group_company_list }) {
                                         </div>
                                     )}
                                 </div>
+                                <div>
+                                    <label htmlFor="department_id">
+                                        Department
+                                    </label>
+                                    <select
+                                        id="department_id"
+                                        className="form-select text-white-dark"
+                                        value={values.department_id}
+                                        onChange={handleChange}
+                                    >
+                                        <option>Choose...</option>
+                                        {departments.map((item) => (
+                                            <option
+                                                key={item.id}
+                                                value={item.id}
+                                            >
+                                                {item.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
 
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                                 <div>
-                                    <label htmlFor="name">Department Code</label>
+                                    <label htmlFor="section_code">Section Code</label>
                                     <input
-                                        id="department_code"
+                                        id="section_code"
                                         type="number"
                                         placeholder="Enter Department Code"
                                         className="form-input"
-                                        value={values.department_code}
+                                        value={values.section_code}
                                         onChange={handleChange}
                                     />
 
@@ -152,18 +178,18 @@ function Add({ group_company_list }) {
                                         onChange={handleChange}
                                     />
                                 </div>
+
                                 <div>
-                                    <label htmlFor="name">Top Rank</label>
+                                    <label htmlFor="name">Email</label>
                                     <input
-                                        id="top_rank"
+                                        id="email"
                                         type="text"
-                                        placeholder="Enter Title"
+                                        placeholder="Enter Email"
                                         className="form-input"
-                                        value={values.top_rank}
+                                        value={values.email}
                                         onChange={handleChange}
                                     />
                                 </div>
-
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                                 <div>
@@ -230,6 +256,19 @@ function Add({ group_company_list }) {
                                     </select>
                                 </div>
                             </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label htmlFor="name">Top Rank</label>
+                                    <input
+                                        id="top_rank"
+                                        type="text"
+                                        placeholder="Enter Title"
+                                        className="form-input"
+                                        value={values.top_rank}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                            </div>
 
                             <button
                                 type="submit"
@@ -246,7 +285,7 @@ function Add({ group_company_list }) {
 }
 
 Add.layout = (page) => (
-    <MainLayout children={page} title="HR || Add Department" />
+    <MainLayout children={page} title="HR || Add Section" />
 );
 
 export default Add;

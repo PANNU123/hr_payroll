@@ -42,7 +42,7 @@ function MainLayout({children , title}) {
 
   return (
     <>
-    <Head title={title} />
+    <Head title = {title} />
 
     <div className={`${(themeConfig.sidebar && 'toggle-sidebar') || ''} ${themeConfig.menu} ${themeConfig.layout} ${themeConfig.rtlClass} main-section antialiased relative font-nunito text-sm font-normal`}>
              <div className="relative">

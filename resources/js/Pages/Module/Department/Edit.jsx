@@ -6,13 +6,18 @@ import "react-quill/dist/quill.snow.css";
 import FlashMessage from "../../Component/FlashMessage.jsx";
 
 function Edit({ result }) {
-    const {  flash } = usePage().props;
+    const {  flash,users } = usePage().props;
     const { errors } = usePage().props;
     const [values, setValues] = useState({
         id: result.id,
         name: result.name,
-        description:result.description,
-
+        short_name:result.short_name,
+        department_code:result.department_code,
+        started_from:result.started_from,
+        top_rank:result.top_rank,
+        report_to:result.report_to,
+        headed_by:result.headed_by,
+        second_man:result.second_man,
     });
 
     function handleChange(e) {
@@ -25,7 +30,7 @@ function Edit({ result }) {
     }
     function handleSubmit(e) {
         e.preventDefault();
-        router.post("/admin/title/update", values);
+        router.post("/admin/department/update", values);
     }
     return (
         <>
@@ -78,13 +83,13 @@ function Edit({ result }) {
                             onSubmit={handleSubmit}
                             method="post"
                         >
-                            <div className="grid grid-cols-1 sm:grid-cols-1">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label htmlFor="name">Name</label>
                                     <input
                                         id="name"
                                         type="text"
-                                        placeholder="Enter Title"
+                                        placeholder="Enter Name"
                                         className="form-input"
                                         value={values.name}
                                         onChange={handleChange}
@@ -96,18 +101,125 @@ function Edit({ result }) {
                                     )}
                                 </div>
                                 <div>
-                                    <label htmlFor="gridAddress1">Description</label>
-
-                                    <textarea
-                                        id="description"
-                                        placeholder="Enter Description"
+                                    <label>Short Name</label>
+                                    <input
+                                        id="short_name"
+                                        type="text"
+                                        placeholder="Enter Short Name"
                                         className="form-input"
-                                        value={values.description}
+                                        value={values.short_name}
                                         onChange={handleChange}
-                                    ></textarea>
+                                    />
+                                    {errors.short_name && (
+                                        <div className="text-red-600 text-[14px]">
+                                            {errors.short_name}
+                                        </div>
+                                    )}
+                                </div>
+
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label htmlFor="name">Department Code</label>
+                                    <input
+                                        id="department_code"
+                                        type="number"
+                                        placeholder="Enter Department Code"
+                                        className="form-input"
+                                        value={values.department_code}
+                                        onChange={handleChange}
+                                    />
+
+                                </div>
+                                <div>
+                                    <label htmlFor="name">Started From</label>
+                                    <input
+                                        id="started_from"
+                                        type="date"
+                                        placeholder="Enter Started From"
+                                        className="form-input"
+                                        value={values.started_from}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="name">Top Rank</label>
+                                    <input
+                                        id="top_rank"
+                                        type="text"
+                                        placeholder="Enter Title"
+                                        className="form-input"
+                                        value={values.top_rank}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label htmlFor="report_to">
+                                        Report To
+                                    </label>
+                                    <select
+                                        id="report_to"
+                                        className="form-select text-white-dark"
+                                        value={values.report_to}
+                                        onChange={handleChange}
+                                    >
+                                        <option>Choose...</option>
+                                        {users.map((item) => (
+                                            <option
+                                                key={item.id}
+                                                value={item.id}
+                                            >
+                                                {item.first_name} {item.last_name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label htmlFor="headed_by">
+                                        Headed By
+                                    </label>
+                                    <select
+                                        id="headed_by"
+                                        className="form-select text-white-dark"
+                                        value={values.headed_by}
+                                        onChange={handleChange}
+                                    >
+                                        <option>Choose...</option>
+                                        {users.map((item) => (
+                                            <option
+                                                key={item.id}
+                                                value={item.id}
+                                            >
+                                                {item.first_name} {item.last_name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label htmlFor="second_man">
+                                        Second Man
+                                    </label>
+                                    <select
+                                        id="second_man"
+                                        className="form-select text-white-dark"
+                                        value={values.second_man}
+                                        onChange={handleChange}
+                                    >
+                                        <option>Choose...</option>
+                                        {users.map((item) => (
+                                            <option
+                                                key={item.id}
+                                                value={item.id}
+                                            >
+                                                {item.first_name} {item.last_name}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </div>
                             </div>
-
                             <button
                                 type="submit"
                                 className="btn btn-primary !mt-6"
@@ -121,9 +233,8 @@ function Edit({ result }) {
         </>
     );
 }
-
 Edit.layout = (page) => (
-    <MainLayout children={page} title="HR || Edit Group Of Company" />
+    <MainLayout children={page} title="HR || Edit Department" />
 );
 
 export default Edit;

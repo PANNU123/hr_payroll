@@ -13,6 +13,7 @@ use App\Http\Controllers\GroupCompanyController;
 use App\Http\Controllers\PublicHolidayController;
 use App\Http\Controllers\PunchDetailsController;
 use App\Http\Controllers\ReligionsController;
+use App\Http\Controllers\SectionController;
 use App\Http\Controllers\TitleController;
 use App\Http\Controllers\WorkingStatusController;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +27,7 @@ Route::get('/', function () {
 Route::get('/login',[LoginController::class,'login'])->name('login');
 Route::post('/login',[LoginController::class,'loginPost'])->name('login.post');
 
-Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'],'as' =>'admin.'],function() {
+Route::group(['prefix' => 'admin','middleware' => ['auth'],'as' =>'admin.'],function() {
     Route::get('dashboard', [DashboardController::class, 'adminDashboard'])->name('dashboard');
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('get-punch-details', [PunchDetailsController::class, 'getPunchedData'])->name('get.punch.machine.date');
@@ -149,6 +150,17 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/delete/{id}', [DepartmentController::class, 'delete'])->name('department.delete');
         Route::get('/active/{id}', [DepartmentController::class, 'active'])->name('department.status.active');
         Route::get('/inactive/{id}', [DepartmentController::class, 'inactive'])->name('department.status.inactive');
+    });
+
+    Route::group(['prefix' => 'section' ],function (){
+        Route::get('', [SectionController::class, 'index'])->name('section');
+        Route::get('/create', [SectionController::class, 'create'])->name('section.create');
+        Route::post('/store', [SectionController::class, 'store'])->name('section.store');
+        Route::get('/edit/{id}', [SectionController::class, 'edit'])->name('section.edit');
+        Route::post('/update', [SectionController::class, 'update'])->name('section.update');
+        Route::get('/delete/{id}', [SectionController::class, 'delete'])->name('section.delete');
+        Route::get('/active/{id}', [SectionController::class, 'active'])->name('section.status.active');
+        Route::get('/inactive/{id}', [SectionController::class, 'inactive'])->name('section.status.inactive');
     });
 
 });

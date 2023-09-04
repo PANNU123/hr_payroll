@@ -158,7 +158,7 @@ function Edit({ result }) {
 }
 
 Edit.layout = (page) => (
-    <MainLayout children={page} title="HR || Edit Group Of Company" />
+    <MainLayout children={page} title="HR || Edit Designation" />
 );
 
 export default Edit;

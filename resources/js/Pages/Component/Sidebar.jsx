@@ -178,9 +178,9 @@ useEffect(() => {
                                         <li>
                                             <Link href={`${base_url}/admin/working_status`}>{t('Working Status')}</Link>
                                         </li>
-                                        <li>
-                                            <Link href={`${base_url}/admin/bangladesh`}>{t('Bangladesh')}</Link>
-                                        </li>
+                                        {/*<li>*/}
+                                        {/*    <Link href={`${base_url}/admin/bangladesh`}>{t('Bangladesh')}</Link>*/}
+                                        {/*</li>*/}
                                         <li>
                                             <Link href={`${base_url}/admin/duty_locations`}>{t('Duty Locations')}</Link>
                                         </li>
@@ -192,6 +192,9 @@ useEffect(() => {
                                         </li>
                                         <li>
                                             <Link href={`${base_url}/admin/department`}>{t('Department')}</Link>
+                                        </li>
+                                        <li>
+                                            <Link href={`${base_url}/admin/section`}>{t('Section')}</Link>
                                         </li>
                                     </ul>
                                 </AnimateHeight>

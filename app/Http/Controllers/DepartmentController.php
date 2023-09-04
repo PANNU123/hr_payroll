@@ -37,7 +37,8 @@ class DepartmentController extends Controller
     }
     public function edit($id){
         $result = $this->department->edit($id);
-        return Inertia::render('Module/Department/Edit',['result'=>$result]);
+        $users = User::get();
+        return Inertia::render('Module/Department/Edit',['result'=>$result,'users'=>$users]);
     }
     public function update(Request $request){
         $result=$this->department->update($request);
