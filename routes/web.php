@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\BangladeshController;
 use App\Http\Controllers\BankController;
+use App\Http\Controllers\CommonController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DesignationController;
 use App\Http\Controllers\DutyLocationController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GroupCompanyController;
@@ -31,7 +33,8 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
     Route::get('dashboard', [DashboardController::class, 'adminDashboard'])->name('dashboard');
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('get-punch-details', [PunchDetailsController::class, 'getPunchedData'])->name('get.punch.machine.date');
-
+    Route::get('get-thana/{district}', [CommonController::class, 'getThana'])->name('get.thana');
+    Route::get('get-post-code/{post_code}', [CommonController::class, 'getPostCode'])->name('get.post.code');
 
 
     Route::group(['prefix' => 'group-companies' ],function (){
@@ -158,12 +161,16 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
         Route::get('/edit/{id}', [NoticeController::class, 'edit'])->name('notice.edit');
         Route::post('/update', [NoticeController::class, 'update'])->name('notice.update');
         Route::get('/delete/{id}', [NoticeController::class, 'delete'])->name('notice.delete');
-
-
         Route::get('/status/{id}', [NoticeController::class, 'status'])->name('notice.status');
+    });
 
-
-//        Route::get('/inactive/{id}', [NoticeController::class, 'inactive'])->name('notice.status.inactive');
+    Route::group(['prefix' => 'employee' ],function (){
+        Route::get('', [EmployeeController::class, 'index'])->name('notice');
+        Route::get('/create', [EmployeeController::class, 'create'])->name('notice.create');
+        Route::post('/store', [EmployeeController::class, 'store'])->name('notice.store');
+        Route::get('/edit/{id}', [EmployeeController::class, 'edit'])->name('notice.edit');
+        Route::post('/update', [EmployeeController::class, 'update'])->name('notice.update');
+        Route::get('/delete/{id}', [EmployeeController::class, 'delete'])->name('notice.delete');
     });
 
 });

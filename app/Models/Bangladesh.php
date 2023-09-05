@@ -15,5 +15,6 @@ class Bangladesh extends Model
         'thana',
         'post_office',
         'post_code',
+        'status'
     ];
 }

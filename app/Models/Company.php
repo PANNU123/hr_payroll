@@ -12,6 +12,6 @@ class Company extends Model
         'group_company_id','name','address','city',
         'state','post_code',
         'email','country','phone_no',
-        'website','currency',
+        'website','currency','status'
     ];
 }

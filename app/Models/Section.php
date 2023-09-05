@@ -14,6 +14,6 @@ class Section extends Model
         'description','started_from','report_to',
         'approval_authority','headed_by','second_man',
         'email','status','emp_count',
-        'approved_manpower','top_rank',
+        'approved_manpower','top_rank','status'
     ];
 }

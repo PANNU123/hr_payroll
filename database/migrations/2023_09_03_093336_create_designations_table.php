@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('RESTRICT');
 
-            $table->integer('designation_code',false)->unsigned()->nullable();
+            $table->integer('designation_code',false)->nullable();
             $table->string('name',120);
             $table->string('short_name',25);
             $table->string('description',240)->nullable();

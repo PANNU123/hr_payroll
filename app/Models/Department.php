@@ -19,5 +19,6 @@ class Department extends Model
         'report_to',
         'headed_by',
         'second_man',
+        'status'
     ];
 }
