@@ -71,7 +71,7 @@ function MainLayout({children , title}) {
                 </div>
 
                 {/* BEGIN APP SETTING LAUNCHER */}
-                <Setting />
+                {/*<Setting />*/}
                 {/* END APP SETTING LAUNCHER */}
 
                 <div className={`${themeConfig.navbar} main-container text-black dark:text-white-dark min-h-screen`}>

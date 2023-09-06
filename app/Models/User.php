@@ -51,4 +51,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function personaldata(){
+        return $this->hasOne(EmployeePersonal::class,'user_id');
+    }
+
+    public function professionaldata(){
+        return $this->hasOne(EmployeeProfessional::class,'user_id');
+    }
 }

@@ -17,4 +17,15 @@ class EmployeeProfessional extends Model
         'pay_schale','pay_grade','confirm_probation',
         'confirm_period','bank_acc_no','status_change_date',
     ];
+
+    public function working(){
+        return $this->belongsTo(WorkingStatus::class,'working_status_id');
+    }
+    public function designation(){
+        return $this->belongsTo(Designation::class,'designation_id');
+    }
+    public function department(){
+        return $this->belongsTo(Department::class,'department_id');
+    }
+
 }

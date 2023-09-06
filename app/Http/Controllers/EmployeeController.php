@@ -19,15 +19,15 @@ use Inertia\Inertia;
 
 class EmployeeController extends Controller
 {
-    protected $notice;
+    protected $employee;
 
-    public function __construct(EmployeeRepository $notice)
+    public function __construct(EmployeeRepository $employee)
     {
-        $this->notice = $notice;
+        $this->employee = $employee;
     }
 
     public function index(){
-        $result = $this->notice->getAll();
+        $result = $this->employee->getAll();
         return Inertia::render('Module/Employee/Index',['result' => $result]);
     }
     public function create(){
@@ -50,7 +50,7 @@ class EmployeeController extends Controller
         ]);
     }
     public function store(Request $request){
-        $result = $this->notice->store($request);
+        $result = $this->employee->store($request);
         if($result['status']== true){
             return back()->with('success', $result['message']);
         }else{
@@ -58,11 +58,27 @@ class EmployeeController extends Controller
         }
     }
     public function edit($id){
-        $result = $this->notice->edit($id);
-        return Inertia::render('Module/Employee/Edit',['result'=>$result]);
+        $result = $this->employee->edit($id);
+        $companies = Company::select('id','name')->get();
+        $users = User::select('id','first_name')->get();
+        $titles = Title::select('id','name')->get();
+        $religions = Religions::select('id','name')->get();
+        $bangladesh = Bangladesh::select('district')->groupBy('district')->get();
+
+        $department = Department::select('id','name')->get();
+        $section = Section::select('id','name')->get();
+        $designation = Designation::select('id','name')->get();
+        $working_status = WorkingStatus::select('id','name')->get();
+        $banks = Bank::select('id','name')->get();
+        return Inertia::render('Module/Employee/Edit',['result'=>$result,
+            'companies'=>$companies,'users'=>$users,'titles'=>$titles,
+            'religions'=>$religions,'bangladesh'=>$bangladesh,'department'=>$department,
+            'section'=>$section,'designation'=>$designation,'working_status'=>$working_status,
+            'banks'=>$banks,
+        ]);
     }
     public function update(Request $request){
-        $result=$this->notice->update($request);
+        $result=$this->employee->update($request);
         if($result['status']== true){
             return back()->with('success', $result['message']);
         }else{
@@ -70,11 +86,11 @@ class EmployeeController extends Controller
         }
     }
     public function delete($id){
-        $result= $this->notice->delete($id);
+        $result= $this->employee->delete($id);
         return back()->with('success', $result['message']);
     }
     public function status($id){
-        $result = $this->notice->status($id);
+        $result = $this->employee->status($id);
         return back()->with('success', $result['message']);
     }
 }

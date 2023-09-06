@@ -12,13 +12,13 @@ use Illuminate\Support\Facades\Hash;
 class EmployeeRepository {
     protected $model;
 
-    public function __construct(Title $model)
+    public function __construct(User $model)
     {
         $this->model=$model;
     }
 
     public function getAll(){
-        return $this->model::all();
+        return User::with('personaldata','professionaldata','professionaldata.designation','professionaldata.department','professionaldata.working')->get();
     }
     public function store($request){
 
@@ -34,8 +34,10 @@ class EmployeeRepository {
 //        }
         $avatar = 'avatar';
         $signature = 'signature';
+        $companyId = \App\Models\User::where('id', auth()->user()->id)->value('company_id');
 
         $user = User::create([
+            'company_id'=>$companyId,
             'username' => $request->first_name.' '.$request->first_name,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -49,7 +51,7 @@ class EmployeeRepository {
         ]);
         if($user){
             $personal_data = EmployeePersonal::create([
-                'company_id'=>$request->company_id,
+                'company_id'=>$companyId,
                 'user_id'=>$user->id,
                 'title_id'=>$request->title_id,
                 'religion_id'=>$request->religion_id,
@@ -79,8 +81,7 @@ class EmployeeRepository {
                 'created_by'=>auth()->user()->id,
             ]);
             if($personal_data){
-                $professional_data = EmployeeProfessional::updateOrInsert([
-//                    'emp_personals_id'=>$personal_data->id,
+                $professional_data = EmployeeProfessional::create([
                     'user_id'=>$user->id,
                     'department_id'=>$request->department_id,
                     'section_id'=>$request->section_id,
@@ -115,7 +116,7 @@ class EmployeeRepository {
         }
     }
     public function edit(int $id){
-        return $this->model::find($id);
+        return $this->model::with('personaldata','professionaldata','professionaldata.designation','professionaldata.department','professionaldata.working')->find($id);
     }
 
     public function update($request){

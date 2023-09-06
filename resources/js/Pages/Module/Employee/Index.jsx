@@ -11,12 +11,12 @@ function Index({ result }) {
     const PAGE_SIZES = [10, 20, 30, 50, 100];
     const [page2, setPage2] = useState(1);
     const [pageSize2, setPageSize2] = useState(PAGE_SIZES[0]);
-    const [initialRecords2, setInitialRecords2] = useState(result, "name");
+    const [initialRecords2, setInitialRecords2] = useState(result, "first_name");
     const [recordsData2, setRecordsData2] = useState(initialRecords2);
 
     const [search2, setSearch2] = useState("");
     const [sortStatus2, setSortStatus2] = useState({
-        columnAccessor: "name",
+        columnAccessor: "first_name",
         direction: "asc",
     });
 
@@ -34,14 +34,7 @@ function Index({ result }) {
         setInitialRecords2(() => {
             return result.filter((item) => {
                 return (
-                    item.name.toLowerCase().includes(search2.toLowerCase()) ||
-                    item.address
-                        .toLowerCase()
-                        .includes(search2.toLowerCase()) ||
-                    item.city
-                        .toString()
-                        .toLowerCase()
-                        .includes(search2.toLowerCase())
+                    item.first_name.toLowerCase().includes(search2.toLowerCase())
                 );
             });
         });
@@ -59,21 +52,6 @@ function Index({ result }) {
         }
         return "";
     };
-
-    // const randomStatus = () => {
-    //     const status = [
-    //         "PAID",
-    //         "APPROVED",
-    //         "FAILED",
-    //         "CANCEL",
-    //         "SUCCESS",
-    //         "PENDING",
-    //         "COMPLETE",
-    //     ];
-    //     const random = Math.floor(Math.random() * status.length);
-    //     return status[random];
-    // };
-
     function editData(result) {
         router.get("/admin/employee/edit/" + result.id);
     }
@@ -147,13 +125,53 @@ function Index({ result }) {
                         records={recordsData2}
                         columns={[
                             {
-                                accessor: "name",
+                                accessor: "full_name",
                                 title: "Name",
-                                render: ({ name }) => (
+                                render: ({ first_name ,last_name }) => (
                                     <div className="flex items-center w-max">
-                                        <div>{name}</div>
+                                        <img className="w-9 h-9 rounded-full ltr:mr-2 rtl:ml-2 object-cover" src={`/assets/images/user-profile.jpeg`} alt="" />
+                                        <div>{first_name} {last_name}</div>
                                     </div>
                                 ),
+                            },
+                            {
+                                accessor: "emp_id", // You can choose any name for the accessor
+                                title: "Emp ID",
+                                render: ({ machine_user_id, professionaldata }) => {
+                                    const joining_date = professionaldata?.joining_date;
+                                    const carbonDate = new Date(joining_date);
+                                    const formattedDate = carbonDate?.toLocaleDateString('en-US', { year: '2-digit', month: 'numeric' });
+
+                                    return (
+                                    <div className="flex items-center w-max">
+                                        <span dangerouslySetInnerHTML={{ __html: `LL-${formattedDate} - ${machine_user_id} <br/> <span class="text-indigo-800 font-bold text-[16px]">${professionaldata?.working?.name}</span>` }} />
+                                    </div>
+                                    );
+                                },
+                            },
+                            {
+                                accessor: "Designation",
+                                title: (
+                                    <span dangerouslySetInnerHTML={{ __html: 'Designation <br/> Department' }} />
+                                ),
+                                render: ({ professionaldata }) => (
+                                    <div className="flex items-center w-max">
+                                        <span dangerouslySetInnerHTML={{ __html: `${professionaldata?.designation?.name} <br/> ${professionaldata?.department?.name}` }} />
+                                    </div>
+                                ),
+                            },
+                            {
+                                accessor: "joining_date",
+                                title:"Joining Date",
+                                render: ({ professionaldata }) => (
+                                    <div className="flex items-center w-max">
+                                        <span dangerouslySetInnerHTML={{ __html: `${professionaldata?.joining_date}` }} />
+                                    </div>
+                                ),
+                            },
+                            {
+                                accessor: "mobile",
+                                title: "Mobile",
                             },
                             {
                                 accessor: "status",

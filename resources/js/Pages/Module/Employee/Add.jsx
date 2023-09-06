@@ -4,22 +4,19 @@ import { Link, router, usePage } from "@inertiajs/react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import FlashMessage from "../../Component/FlashMessage.jsx";
-import { useForm } from "react-hook-form";
+import { useForm  } from "react-hook-form";
 import axios from 'axios'; // Import Axios
 
 function Add({companies,users,titles,religions,bangladesh,department,section,designation,working_status,banks,})
 {
     const {  flash } = usePage().props;
-    const { register, handleSubmit,formState: { errors } } = useForm();
+    const { register, handleSubmit,setValue,formState: { errors } } = useForm();
 
     const [presentThana, setPresentThana] = useState([]);
-    const [presentPostCode, setPresentPostCode] = useState();
-
     const [parmanentThana, setParmanentThana] = useState([]);
-    const [parmanentPostCode, setParmanentPostCode] = useState();
-
     const [mailingThana, setMailingThana] = useState([]);
-    const [mailingPostCode, setMailingPostCode] = useState();
+
+
 
     const presentDistrictSelect =  async (name) => {
         try {
@@ -32,7 +29,7 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
     const presentThanaSelect =  async (name) => {
         try {
             const response = await axios.get('/admin/get-post-code/'+name);
-            setPresentPostCode(response.data.post_code);
+            setValue('pr_post_code', response.data.post_code);
         } catch (error) {
             console.error(error);
         }
@@ -50,7 +47,7 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
     const parmanentThanaSelect =  async (name) => {
         try {
             const response = await axios.get('/admin/get-post-code/'+name);
-            setParmanentPostCode(response.data.post_code);
+            setValue('pm_post_code', response.data.post_code);
         } catch (error) {
             console.error(error);
         }
@@ -67,7 +64,7 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
     const mailingThanaSelect =  async (name) => {
         try {
             const response = await axios.get('/admin/get-post-code/'+name);
-            setMailingPostCode(response.data.post_code);
+            setValue('m_post_code', response.data.post_code);
         } catch (error) {
             console.error(error);
         }
@@ -76,7 +73,7 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
 
 
     function onSubmit(data) {
-        console.log(data);
+        // console.log(data);
         router.post("/admin/employee/store", data);
     }
 
@@ -121,7 +118,7 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
             <div className="pt-5 grid lg:grid-cols-1 grid-cols-1 gap-6">
                 <form className="space-y-5" onSubmit={handleSubmit(onSubmit)} method="post" >
                     <div className="panel" id="forms_grid">
-                            {/*Employee credentials*/}
+                        {/*Employee credentials*/}
                         <div className="flex items-center justify-between mb-5">
                             <h5 className="font-semibold text-lg dark:text-white-light">
                                 Employee Credential Information
@@ -129,112 +126,113 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                         </div>
                         <div className="mb-5">
 
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                    <div>
-                                        <label htmlFor="name">First Name</label>
-                                        <input
-                                            type="text"
-                                            className="form-input"
-                                            placeholder="Enter First Name"
-                                            {...register("first_name", { required: "First Name is required" })}
-                                        />
-                                        {errors.first_name && (
-                                            <span className="text-red-600 text-[14px] pt-3">
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label htmlFor="name">First Name</label>
+                                    <input
+                                        type="text"
+                                        className="form-input"
+                                        placeholder="Enter First Name"
+                                        {...register("first_name", { required: "First Name is required" })}
+                                    />
+                                    {errors.first_name && (
+                                        <span className="text-red-600 text-[14px] pt-3">
                                                 {errors.first_name.message}
                                             </span>
-                                        )}
-                                    </div>
-                                    <div>
-                                        <label htmlFor="name">Last Name</label>
-                                        <input
-                                            type="text"
-                                            className="form-input"
-                                            placeholder="Enter Last Name"
-                                            {...register("last_name", { required: "Last Name is required" })}
-                                        />
-                                        {errors.last_name && (
-                                            <span className="text-red-600 text-[14px] pt-3">
+                                    )}
+                                </div>
+                                <div>
+                                    <label htmlFor="name">Last Name</label>
+                                    <input
+                                        type="text"
+                                        className="form-input"
+                                        placeholder="Enter Last Name"
+                                        {...register("last_name", { required: "Last Name is required" })}
+                                    />
+                                    {errors.last_name && (
+                                        <span className="text-red-600 text-[14px] pt-3">
                                                 {errors.last_name.message}
                                             </span>
-                                        )}
-                                    </div>
-                                    <div>
-                                        <label htmlFor="name">Email</label>
-                                        <input
-                                            type="email"
-                                            className="form-input
+                                    )}
+                                </div>
+                                <div>
+                                    <label htmlFor="name">Email</label>
+                                    <input
+                                        type="email"
+                                        className="form-input
                                          {`${errors.email && 'is-invalid'}`}"
-                                            {...register("email",
-                                                {
+                                        {...register("email",
+                                            {
                                                 required:"Email is required",
                                                 pattern: { value: /\S+@\S+\.\S+/, message: 'Enter a valid email'}
-                                                })} placeholder="name@example.com" />
-                                        {errors.email && (
-                                            <span className="text-red-600 text-[14px]">
+                                            })} placeholder="name@example.com" />
+                                    {errors.email && (
+                                        <span className="text-red-600 text-[14px]">
                                                 {errors.email.message}
                                             </span>
-                                        )}
-                                    </div>
-
+                                    )}
                                 </div>
-                                <br/>
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                    <div>
-                                        <label htmlFor="name">Machine User ID</label>
-                                        <input
-                                            type="number"
-                                            className="form-input"
-                                            placeholder="Enter Machine User ID"
-                                            {...register("machine_user_id", { required: "Machine User ID is required" })}
-                                        />
-                                        {errors.machine_user_id && (
-                                            <span className="text-red-600 text-[14px] pt-3">
+
+                            </div>
+                            <br/>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label htmlFor="name">Machine User ID</label>
+                                    <input
+                                        type="number"
+                                        className="form-input"
+                                        placeholder="Enter Machine User ID"
+                                        {...register("machine_user_id", { required: "Machine User ID is required" })}
+                                    />
+                                    {errors.machine_user_id && (
+                                        <span className="text-red-600 text-[14px] pt-3">
                                                 {errors.machine_user_id.message}
                                             </span>
-                                        )}
-                                    </div>
-                                    <div>
-                                        <label htmlFor="name">Mobile</label>
-                                        <input
-                                            type="text"
-                                            className="form-input"
-                                            placeholder="Enter Mobile Number"
-                                            {...register("mobile")}
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="type">
-                                            Gender
-                                        </label>
-                                        <select
-                                            className="form-select text-white-dark"
-                                            {...register("gender")}
-                                        >
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                        </select>
-                                    </div>
+                                    )}
+                                </div>
+                                <div>
+                                    <label htmlFor="name">Mobile</label>
+                                    <input
+                                        type="text"
+                                        className="form-input"
+                                        placeholder="Enter Mobile Number"
+                                        {...register("mobile")}
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="type">
+                                        Gender
+                                    </label>
+                                    <select
+                                        className="form-select text-white-dark"
+                                        {...register("gender")}
+                                        defaultValue="Male"
+                                    >
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                </div>
 
+                            </div>
+                            <br/>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label htmlFor="date">Date Of Birth ID</label>
+                                    <input
+                                        type="date"
+                                        className="form-input"
+                                        {...register("date_of_birth")}
+                                    />
                                 </div>
-                                <br/>
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                    <div>
-                                        <label htmlFor="date">Date Of Birth ID</label>
-                                        <input
-                                            type="date"
-                                            className="form-input"
-                                            {...register("date_of_birth")}
-                                        />
-                                    </div>
-                                    <div>
-                                        <label htmlFor="avatar">Avatar</label>
-                                        <input
-                                            type="file"
-                                            className="form-input"
-                                            {...register("avatar")}
-                                        />
-                                    </div>
+                                <div>
+                                    <label htmlFor="avatar">Avatar</label>
+                                    <input
+                                        type="file"
+                                        className="form-input"
+                                        {...register("avatar")}
+                                    />
                                 </div>
+                            </div>
                         </div>
                     </div>
                     <div className="panel" id="forms_grid">
@@ -254,6 +252,7 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                         className="form-select text-white-dark"
                                         {...register("company_id")}
                                     >
+                                        <option value="">Choose Option...</option>
                                         {companies.map((item) => (
                                             <option
                                                 key={item.id}
@@ -272,6 +271,7 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                         className="form-select text-white-dark"
                                         {...register("title_id")}
                                     >
+                                        <option value="">Choose Option...</option>
                                         {titles.map((item) => (
                                             <option
                                                 key={item.id}
@@ -290,6 +290,7 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                         className="form-select text-white-dark"
                                         {...register("religion_id")}
                                     >
+                                        <option value="">Choose Option...</option>
                                         {religions.map((item) => (
                                             <option
                                                 key={item.id}
@@ -370,9 +371,10 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                     </label>
                                     <select
                                         className="form-select text-white-dark"
-                                        {...register("pr_district")}
+                                        {...register("pr_district",{ required: "Present District is required" })}
                                         onChange={(e) => presentDistrictSelect(e.target.value)}
                                     >
+                                        <option value="">Choose Option...</option>
                                         {bangladesh.map((item) => (
                                             <option
                                                 key={item.district}
@@ -389,9 +391,10 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                     </label>
                                     <select
                                         className="form-select text-white-dark"
-                                        {...register("pr_police_station")}
+                                        {...register("pr_police_station",{ required: "Present Police Station is required" })}
                                         onChange={(e) => presentThanaSelect(e.target.value)}
                                     >
+                                        <option value="">Choose Option...</option>
                                         {presentThana.map((item) => (
                                             <option
                                                 key={item.thana + '-' + item.post_office}
@@ -407,11 +410,11 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                         Present Post Code
                                     </label>
                                     <input
-                                        type="text"
+                                        type="number"
                                         placeholder="Present Post Code"
                                         className="form-input"
-                                        value={presentPostCode}
-                                        {...register("pr_post_code")}
+                                        // value={presentPostCode}
+                                        {...register("pr_post_code",{ required: "Present Post Code is required" })}
                                     />
                                 </div>
 
@@ -434,9 +437,10 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                     </label>
                                     <select
                                         className="form-select text-white-dark"
-                                        {...register("pm_district")}
+                                        {...register("pm_district",{ required: "Permanent District is required" })}
                                         onChange={(e) => parmanentDistrictSelect(e.target.value)}
                                     >
+                                        <option value="">Choose Option...</option>
                                         {bangladesh.map((item) => (
                                             <option
                                                 key={item.district}
@@ -453,10 +457,11 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                     </label>
                                     <select
                                         className="form-select text-white-dark"
-                                        {...register("pm_police_station")}
+                                        {...register("pm_police_station",{ required: "Permanent Police Station is required" })}
                                         onChange={(e) => parmanentThanaSelect(e.target.value)}
 
                                     >
+                                        <option value="">Choose Option...</option>
                                         {parmanentThana.map((item) => (
                                             <option
                                                 key={item.thana + '-' + item.post_office}
@@ -472,11 +477,11 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                         Permanent Post Code
                                     </label>
                                     <input
-                                        type="text"
+                                        type="number"
                                         placeholder="Permanent Post Code"
                                         className="form-input"
-                                        value={parmanentPostCode}
-                                        {...register("pm_post_code")}
+                                        // value={parmanentPostCode}
+                                        {...register("pm_post_code",{ required: "Permanent Post Code is required" })}
                                     />
                                 </div>
 
@@ -499,9 +504,10 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                     </label>
                                     <select
                                         className="form-select text-white-dark"
-                                        {...register("m_district")}
+                                        {...register("m_district",{ required: "Mailing District is required" })}
                                         onChange={(e) => mailingDistrictSelect(e.target.value)}
-                                        >
+                                    >
+                                        <option value="">Choose Option...</option>
                                         {bangladesh.map((item) => (
                                             <option
                                                 key={item.district}
@@ -518,9 +524,10 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                     </label>
                                     <select
                                         className="form-select text-white-dark"
-                                        {...register("m_police_station")}
+                                        {...register("m_police_station",{ required: "Mailing Police Station is required" })}
                                         onChange={(e) => mailingThanaSelect(e.target.value)}
-                                        >
+                                    >
+                                        <option value="">Choose Option...</option>
                                         {mailingThana.map((item) => (
                                             <option
                                                 key={item.thana + '-' + item.post_office}
@@ -536,11 +543,11 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                         Mailing Post Code
                                     </label>
                                     <input
-                                        type="text"
+                                        type="number"
                                         placeholder="Permanent Post Code"
                                         className="form-input"
-                                        {...register("m_post_code")}
-                                        value={mailingPostCode}
+                                        // value={mailingPostCode}
+                                        {...register("m_post_code",{ required: "Mailing Post Code is required" })}
                                     />
                                 </div>
 
@@ -564,6 +571,7 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                     <select
                                         className="form-select text-white-dark"
                                         {...register("blood_group")}
+                                        defaultValue="A+"
                                     >
                                         <option value="A+">A+</option>
                                         <option value="A-">A-</option>
@@ -591,6 +599,7 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                     <select
                                         className="form-select text-white-dark"
                                         {...register("is_printed")}
+                                        defaultValue="1"
                                     >
                                         <option value="1">Yes</option>
                                         <option value="0">No</option>
@@ -631,6 +640,7 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                         className="form-select text-white-dark"
                                         {...register("department_id")}
                                     >
+                                        <option value="">Choose Option...</option>
                                         {department.map((item) => (
                                             <option
                                                 key={item.id}
@@ -649,6 +659,7 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                         className="form-select text-white-dark"
                                         {...register("section_id")}
                                     >
+                                        <option value="">Choose Option...</option>
                                         {section.map((item) => (
                                             <option
                                                 key={item.id}
@@ -667,6 +678,7 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                         className="form-select text-white-dark"
                                         {...register("designation_id")}
                                     >
+                                        <option value="">Choose Option...</option>
                                         {designation.map((item) => (
                                             <option
                                                 key={item.id}
@@ -686,6 +698,7 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                         className="form-select text-white-dark"
                                         {...register("working_status_id")}
                                     >
+                                        <option value="">Choose Option...</option>
                                         {working_status.map((item) => (
                                             <option
                                                 key={item.id}
@@ -708,6 +721,7 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                         className="form-select text-white-dark"
                                         {...register("bank_id")}
                                     >
+                                        <option value="">Choose Option...</option>
                                         {banks.map((item) => (
                                             <option
                                                 key={item.id}
@@ -724,6 +738,7 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                         type="number"
                                         className="form-input"
                                         placeholder="Enter Pf No"
+                                        value="0"
                                         {...register("pf_no")}
                                     />
                                 </div>
@@ -765,6 +780,7 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                     <select
                                         className="form-select text-white-dark"
                                         {...register("overtime")}
+                                        defaultValue="1"
                                     >
                                         <option value="1">Overtime Eligibility</option>
                                         <option value="0">Overtime Not Eligibility</option>
@@ -786,6 +802,7 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                     <select
                                         className="form-select text-white-dark"
                                         {...register("transport")}
+                                        defaultValue="1"
                                     >
                                         <option value="1">Transport Eligibility</option>
                                         <option value="0">Transport Not Eligibility</option>
@@ -811,9 +828,10 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                     <select
                                         className="form-select text-white-dark"
                                         {...register("pay_schale")}
+                                        defaultValue="0"
                                     >
-                                        <option value="1">Yes</option>
                                         <option value="0">No</option>
+                                        <option value="1">Yes</option>
                                     </select>
                                 </div>
                                 <div>
@@ -845,6 +863,7 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                     <select
                                         className="form-select text-white-dark"
                                         {...register("confirm_probation")}
+                                        defaultValue="P"
                                     >
                                         <option value="P">P</option>
                                         <option value="A">A</option>
@@ -857,9 +876,10 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                     <select
                                         className="form-select text-white-dark"
                                         {...register("confirm_period")}
+                                        defaultValue="0"
                                     >
-                                        <option value="0">Yes</option>
-                                        <option value="1">No</option>
+                                        <option value="0">No</option>
+                                        <option value="1">Yes</option>
                                     </select>
                                 </div>
                                 <div>

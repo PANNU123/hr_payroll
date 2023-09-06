@@ -47,6 +47,7 @@ class HandleInertiaRequests extends Middleware
             'auth' => fn () => $request->user()
                 ? $request->user()->only('id', 'first_name', 'last_name','email')
                 : null,
+            'theme'=>"default"
         ]);
     }
 }
