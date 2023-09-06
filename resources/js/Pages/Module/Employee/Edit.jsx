@@ -66,7 +66,6 @@ function Edit()
         setValue('pr_police_station', result?.personaldata?.pr_police_station);
     }, [name]);
 
-
     useEffect(() => {
         const fetchPmThana = async () => {
             try {
@@ -92,7 +91,7 @@ function Edit()
         };
         fetchMThana();
         setValue('m_post_code', result?.personaldata?.m_post_code);
-        setValue('m_post_code', result?.personaldata?.m_post_code);
+        setValue('m_police_station', result?.personaldata?.m_police_station);
     }, [name]);
 
 
@@ -112,8 +111,6 @@ function Edit()
             console.error(error);
         }
     };
-
-
     const parmanentDistrictSelect =  async (name) => {
         try {
             const response = await axios.get('/admin/get-thana/'+name);
@@ -130,7 +127,6 @@ function Edit()
             console.error(error);
         }
     };
-
     const mailingDistrictSelect =  async (name) => {
         try {
             const response = await axios.get('/admin/get-thana/'+name);
@@ -475,6 +471,7 @@ function Edit()
                                     <select
                                         className="form-select text-white-dark"
                                         onChange={(e) => presentThanaSelect(e.target.value)}
+                                        value={result?.personaldata?.pr_police_station || ''}
                                         {...register("pr_police_station")}
                                     >
                                         <option value="">Choose Option...</option>
@@ -540,6 +537,7 @@ function Edit()
                                     </label>
                                     <select
                                         className="form-select text-white-dark"
+                                        value={result?.personaldata?.pm_police_station || ''}
                                         {...register("pm_police_station")}
                                         onChange={(e) => parmanentThanaSelect(e.target.value)}
 
@@ -608,6 +606,7 @@ function Edit()
                                     </label>
                                     <select
                                         className="form-select text-white-dark"
+                                        value={result?.personaldata?.m_police_station || ''}
                                         {...register("m_police_station")}
                                         onChange={(e) => mailingThanaSelect(e.target.value)}
                                     >
