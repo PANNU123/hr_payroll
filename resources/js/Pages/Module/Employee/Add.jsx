@@ -384,6 +384,11 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                             </option>
                                         ))}
                                     </select>
+                                    {errors.pr_district && (
+                                        <span className="text-red-600 text-[14px]">
+                                                {errors.pr_district.message}
+                                            </span>
+                                    )}
                                 </div>
                                 <div>
                                     <label htmlFor="type">
@@ -404,6 +409,11 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                             </option>
                                         ))}
                                     </select>
+                                    {errors.pr_police_station && (
+                                        <span className="text-red-600 text-[14px]">
+                                                {errors.pr_police_station.message}
+                                            </span>
+                                    )}
                                 </div>
                                 <div>
                                     <label htmlFor="type">
@@ -416,6 +426,11 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                         // value={presentPostCode}
                                         {...register("pr_post_code",{ required: "Present Post Code is required" })}
                                     />
+                                    {errors.pr_post_code && (
+                                        <span className="text-red-600 text-[14px]">
+                                                {errors.pr_post_code.message}
+                                            </span>
+                                    )}
                                 </div>
 
                             </div>
@@ -450,6 +465,11 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                             </option>
                                         ))}
                                     </select>
+                                    {errors.pm_district && (
+                                        <span className="text-red-600 text-[14px]">
+                                                {errors.pm_district.message}
+                                            </span>
+                                    )}
                                 </div>
                                 <div>
                                     <label htmlFor="type">
@@ -471,6 +491,11 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                             </option>
                                         ))}
                                     </select>
+                                    {errors.pm_police_station && (
+                                        <span className="text-red-600 text-[14px]">
+                                                {errors.pm_police_station.message}
+                                            </span>
+                                    )}
                                 </div>
                                 <div>
                                     <label htmlFor="type">
@@ -483,6 +508,11 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                         // value={parmanentPostCode}
                                         {...register("pm_post_code",{ required: "Permanent Post Code is required" })}
                                     />
+                                    {errors.pm_post_code && (
+                                        <span className="text-red-600 text-[14px]">
+                                                {errors.pm_post_code.message}
+                                            </span>
+                                    )}
                                 </div>
 
                             </div>
@@ -517,6 +547,11 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                             </option>
                                         ))}
                                     </select>
+                                    {errors.m_district && (
+                                        <span className="text-red-600 text-[14px]">
+                                                {errors.m_district.message}
+                                            </span>
+                                    )}
                                 </div>
                                 <div>
                                     <label htmlFor="type">
@@ -537,6 +572,11 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                             </option>
                                         ))}
                                     </select>
+                                    {errors.m_police_station && (
+                                        <span className="text-red-600 text-[14px]">
+                                                {errors.m_police_station.message}
+                                            </span>
+                                    )}
                                 </div>
                                 <div>
                                     <label htmlFor="type">
@@ -549,6 +589,11 @@ function Add({companies,users,titles,religions,bangladesh,department,section,des
                                         // value={mailingPostCode}
                                         {...register("m_post_code",{ required: "Mailing Post Code is required" })}
                                     />
+                                    {errors.m_post_code && (
+                                        <span className="text-red-600 text-[14px]">
+                                                {errors.m_post_code.message}
+                                            </span>
+                                    )}
                                 </div>
 
                             </div>

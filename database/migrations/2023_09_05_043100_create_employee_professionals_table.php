@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('employee_professionals', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('RESTRICT');
 
             $table->unsignedBigInteger('department_id')->nullable();
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('RESTRICT');
@@ -31,6 +29,7 @@ return new class extends Migration
             $table->unsignedBigInteger('bank_id')->nullable();
             $table->foreign('bank_id')->references('id')->on('banks')->onDelete('RESTRICT');
 
+            $table->integer('user_id');
             $table->integer('pf_no')->default(0);
             $table->integer('report_to')->nullable();
             $table->date('joining_date')->nullable();

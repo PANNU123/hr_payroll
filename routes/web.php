@@ -165,12 +165,12 @@ Route::group(['prefix' => 'admin','middleware' => ['auth','prevent-back-history'
     });
 
     Route::group(['prefix' => 'employee' ],function (){
-        Route::get('', [EmployeeController::class, 'index'])->name('notice');
-        Route::get('/create', [EmployeeController::class, 'create'])->name('notice.create');
-        Route::post('/store', [EmployeeController::class, 'store'])->name('notice.store');
-        Route::get('/edit/{id}', [EmployeeController::class, 'edit'])->name('notice.edit');
-        Route::post('/update', [EmployeeController::class, 'update'])->name('notice.update');
-        Route::get('/delete/{id}', [EmployeeController::class, 'delete'])->name('notice.delete');
+        Route::get('', [EmployeeController::class, 'index'])->name('employee');
+        Route::get('/create', [EmployeeController::class, 'create'])->name('employee.create');
+        Route::post('/store', [EmployeeController::class, 'store'])->name('employee.store');
+        Route::get('/edit/{id}', [EmployeeController::class, 'edit'])->name('employee.edit');
+        Route::post('/update', [EmployeeController::class, 'update'])->name('employee.update');
+        Route::get('/delete/{id}', [EmployeeController::class, 'delete'])->name('employee.delete');
     });
 
 });

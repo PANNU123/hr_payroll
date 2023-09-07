@@ -12,6 +12,7 @@ function Edit()
     const {  flash,companies,users,titles,religions,bangladesh,department,section,designation,working_status,banks,result } = usePage().props;
     const { register, handleSubmit,setValue,formState: { errors } } = useForm({
         defaultValues: {
+            user_id:result.id,
             first_name: result.first_name,
             last_name: result.last_name,
             email: result.email,
@@ -148,8 +149,8 @@ function Edit()
 
 
     function onSubmit(data) {
-        console.log(data);
-        // router.post("/admin/employee/store", data);
+        // console.log(data);
+        router.post("/admin/employee/update", data);
     }
 
     return (
@@ -202,6 +203,11 @@ function Edit()
                         <div className="mb-5">
 
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                    <input
+                                        type="hidden"
+                                        {...register("user_id")}
+                                    />
+
                                 <div>
                                     <label htmlFor="name">First Name</label>
                                     <input
